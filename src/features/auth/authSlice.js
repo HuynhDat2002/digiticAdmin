@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authServices";
 
-const getUserfromLocalStorage = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
-  : null;
+
 const initialState = {
-  user: getUserfromLocalStorage,
+  user:{},
   orders: [],
   isError: false,
   isLoading: false,
@@ -18,7 +16,27 @@ export const login = createAsyncThunk(
     try {
       return await authService.login(userData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const logout = createAsyncThunk("auth/logout",
+  async (thunkAPI) => {
+    try {
+      return await authService.logout();
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+}
+)
+
+export const editUser = createAsyncThunk("auth/edit-user",
+  async (userData,thunkAPI)=>{
+    try {
+      return await authService.editUser(userData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -39,7 +57,7 @@ export const getOrderByUser = createAsyncThunk(
     try {
       return await authService.getOrder(id);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -48,8 +66,8 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
   reducers: {},
-  extraReducers: (buildeer) => {
-    buildeer
+  extraReducers: (builder) => {
+    builder
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
@@ -61,6 +79,40 @@ export const authSlice = createSlice({
         state.message = "success";
       })
       .addCase(login.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        state.isLoading = false;
+      })
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+        state.message = "success";
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        state.isLoading = false;
+      })
+      .addCase(editUser.pending, (state) => {
+        state.isLoading = true;
+      
+
+      })
+      .addCase(editUser.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+        state.message = "success";
+      })
+      .addCase(editUser.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;

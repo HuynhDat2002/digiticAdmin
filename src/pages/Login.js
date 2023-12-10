@@ -6,14 +6,15 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
 
-let schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Email should be valid")
-    .required("Email is Required"),
-  password: yup.string().required("Password is Required"),
-});
+
 const Login = () => {
+  let schema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Email should be valid")
+      .required("Email is Required"),
+    password: yup.string().required("Password is Required"),
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formik = useFormik({
@@ -23,6 +24,7 @@ const Login = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
+      console.log("value login: ",values)
       dispatch(login(values));
     },
   });
@@ -48,7 +50,7 @@ const Login = () => {
         <h3 className="text-center title">Login</h3>
         <p className="text-center">Login to your account to continue.</p>
         <div className="error text-center">
-          {message.message == "Rejected" ? "You are not an Admin" : ""}
+          {message.message === "Rejected" ? "You are not an Admin" : ""}
         </div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput

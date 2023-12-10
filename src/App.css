@@ -42,3 +42,13 @@
   font-family: Roboto !important;
   color: var(--color-828599);
 }
+
+.bg-ffd333{
+  background-color:var(--color-ffd333);
+}
+
+.bg-212529{
+  background-color:var(--color-212529);
+}
+
+
