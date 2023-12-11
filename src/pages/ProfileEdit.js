@@ -32,11 +32,11 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
 
     const formik = useFormik({
         initialValues: {
-            firstname: userData.firstname,
-            lastname: userData.lastname,
-            email: userData.email,
-            mobile: userData.mobile,
-            address: userData.address
+            firstname: userData && userData.firstname,
+            lastname: userData && userData.lastname,
+            email: userData && userData.email,
+            mobile: userData && userData.mobile,
+            address: userData && userData.address
 
         },
         validationSchema: validationSchema(),
@@ -147,15 +147,11 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
                                         {formik.touched.address && formik.errors.address}
                                     </div>
 
-
-                                    <button
-                                        className="bg-ffd333 border-0 mt-2 px-3 py-2 text-white fw-bold w-100 text-center text-decoration-none fs-5 rounded-1"
+                                    <CustomButton
                                         type="submit"
-
-
-                                    >
-                                        Submit
-                                    </button>
+                                        title="Submit"
+                                    />
+                                   
                                 </form>
 
                             </Dialog.Panel>

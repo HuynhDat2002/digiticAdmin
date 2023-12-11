@@ -26,7 +26,7 @@ export const logout = createAsyncThunk("auth/logout",
     try {
       return await authService.logout();
   } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+    return thunkAPI.rejectWithValue(error.message);
   }
 }
 )
@@ -36,10 +36,21 @@ export const editUser = createAsyncThunk("auth/edit-user",
     try {
       return await authService.editUser(userData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+
+export const forgotPassword = createAsyncThunk("auth/edit-user",
+  async (userData,thunkAPI)=>{
+    try {
+      return await authService.forgotPassword(userData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 
 export const getOrders = createAsyncThunk(
   "order/get-orders",
@@ -47,7 +58,7 @@ export const getOrders = createAsyncThunk(
     try {
       return await authService.getOrders();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -57,7 +68,7 @@ export const getOrderByUser = createAsyncThunk(
     try {
       return await authService.getOrder(id);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

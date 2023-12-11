@@ -13,7 +13,7 @@ const ProfileView = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     // navigate('/')
-    const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')));
+    const userData = JSON.parse(localStorage.getItem('user'));
     const [isEdited, setIsEdited] = useState(localStorage.getItem('isEdited'))
     const authState = useSelector((state) => state);
 
@@ -21,8 +21,13 @@ const ProfileView = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        navigate("")
-        setUserData(JSON.parse(localStorage.getItem('user')))
+        if(userData===null){
+            navigate("/",{relative:"path"})
+        }
+        else{
+            navigate("")
+            // setUserData(JSON.parse(localStorage.getItem('user')))
+        }
     }, [user, isError, isSuccess, isLoading]);
 
     return (
@@ -35,9 +40,9 @@ const ProfileView = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <div className="d-flex flex-column align-items-center text-center my-2">
-                                        <img src={userData.image.url} alt={userData.image.public_id} className="rounded-circle" width="150" />
+                                        <img src={userData && userData.image.url} alt={userData && userData.image.public_id} className="rounded-circle" width="150" />
                                         <div className="mt-3">
-                                            <h4>{userData.firstname + " " + userData.lastname}</h4>
+                                            <h4>{userData && userData.firstname } {userData && userData.lastname}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +80,8 @@ const ProfileView = () => {
                                             <h6 className="mb-0">Full Name</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            {userData.firstname + " " + userData.lastname}
+                                        {userData && userData.firstname } {userData && userData.lastname}
+
                                         </div>
                                     </div>
                                     <hr />
@@ -84,7 +90,7 @@ const ProfileView = () => {
                                             <h6 className="mb-0">Email</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            {userData.email}
+                                            {userData && userData.email}
                                         </div>
                                     </div>
                                     <hr />
@@ -93,7 +99,7 @@ const ProfileView = () => {
                                             <h6 className="mb-0">Mobile</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            {userData.mobile}
+                                            {userData && userData.mobile}
                                         </div>
                                     </div>
 
@@ -104,7 +110,7 @@ const ProfileView = () => {
                                             <h6 className="mb-0">Address</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            {userData.address}
+                                            {userData && userData.address}
                                         </div>
                                     </div>
                                     <hr />

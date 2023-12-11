@@ -3,29 +3,24 @@ import { config } from "../../utils/axiosconfig";
 import { base_url } from "../../utils/baseUrl";
 
 
-
-
-
 const login = async (user) => {
   const response = await axios.post(`${base_url}user/admin-login`, user);
-
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
-
-
   }
   return response.data;
 };
 
 const logout = async () => {
-  const userLogin = JSON.parse(localStorage.getItem("user"));
-  const config = {
-    headers: {
-      "Authorization": 'Bearer ' + userLogin.token
-    }
+  
+  console.log('logout')
+  await localStorage.removeItem("user");
+  const response = await axios.get(`${base_url}user/logout`);
+  if(response) {
+    await localStorage.clearItem();
   }
-  const response = await axios.get(`${base_url}user/logout`, config);
-  localStorage.removeItem("user");
+
+
   return response.data;
 }
 
@@ -53,8 +48,10 @@ const editUser = async (user) => {
   if (response.data) {
 
     // console.log("data edit: ",response.data)
-    localStorage.removeItem("user")
+    await localStorage.removeItem("user")
     await localStorage.setItem("user", JSON.stringify(response.data));
+
+
    
   }
 
@@ -79,7 +76,7 @@ const getOrder = async (id) => {
 };
 
 const authService = {
-
+  forgotPassord,
   login,
   logout,
   editUser,

@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import CustomInput from "../components/CustomInput";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
+import axios from "axios";
 
 
 const Login = () => {
+  axios.defaults.withCredentials=true;
   let schema = yup.object().shape({
     email: yup
       .string()
@@ -17,6 +19,7 @@ const Login = () => {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -28,25 +31,19 @@ const Login = () => {
       dispatch(login(values));
     },
   });
+  
   const authState = useSelector((state) => state);
-
   const { user, isError, isSuccess, isLoading, message } = authState.auth;
-
   useEffect(() => {
+    console.log('login')
     if (isSuccess) {
-      navigate("admin");
-    } else {
-      navigate("");
+      navigate("/admin");
     }
-  }, [user, isError, isSuccess, isLoading]);
+  }, [isSuccess]);
+  console.log('n')
   return (
-    <div className="py-5" style={{ background: "#ffd333", minHeight: "100vh" }}>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
+    <div className="position-relative py-5 bg-ffd333 min-vh-100">
+      <div className=" position-fixed top-50 start-50 translate-middle my-auto w-25 bg-white rounded-3 mx-auto p-4">
         <h3 className="text-center title">Login</h3>
         <p className="text-center">Login to your account to continue.</p>
         <div className="error text-center">
@@ -78,7 +75,7 @@ const Login = () => {
             {formik.touched.password && formik.errors.password}
           </div>
           <div className="mb-3 text-end">
-            <Link to="forgot-password" className="">
+            <Link to="/forgot-password" className="">
               Forgot Password?
             </Link>
           </div>
