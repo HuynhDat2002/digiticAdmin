@@ -41,10 +41,10 @@ export const editUser = createAsyncThunk("auth/edit-user",
   }
 );
 
-export const forgotPassword = createAsyncThunk("auth/edit-user",
-  async (userData,thunkAPI)=>{
+export const forgotPassword = createAsyncThunk("auth/forgot-password",
+  async (email,thunkAPI)=>{
     try {
-      return await authService.forgotPassword(userData);
+      return await authService.forgotPassword(email);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -124,6 +124,25 @@ export const authSlice = createSlice({
         state.message = "success";
       })
       .addCase(editUser.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        state.isLoading = false;
+      })
+
+      .addCase(forgotPassword.pending, (state) => {
+        state.isLoading = true;
+      
+
+      })
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+        state.message = "success";
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;

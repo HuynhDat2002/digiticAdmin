@@ -33,16 +33,11 @@ const editUser = async (user) => {
     console.error("Token is missing");
     return null;
   }
-
-
-
   const config = {
     headers: {
       "Authorization": 'Bearer ' + userLogin.token
     }
   }
-
-
   const response = await axios.put(`${base_url}user/edit-user`, user, config);
   console.log("response edit: ", response.data);
   if (response.data) {
@@ -50,16 +45,18 @@ const editUser = async (user) => {
     // console.log("data edit: ",response.data)
     await localStorage.removeItem("user")
     await localStorage.setItem("user", JSON.stringify(response.data));
-
-
-   
   }
-
   const usera = JSON.parse(localStorage.getItem("user"))
   console.log("userEdit after: ", usera)
   return response.data;
-
 }
+
+const forgotPassword = async (email) => {
+  const response = await axios.post(`${base_url}user/forgot-password-token`,email);
+  console.log(response.data);
+  return response.data;
+}
+
 const getOrders = async () => {
   const response = await axios.get(`${base_url}user/getallorders`, config);
 
@@ -76,7 +73,7 @@ const getOrder = async (id) => {
 };
 
 const authService = {
-  forgotPassord,
+  forgotPassword,
   login,
   logout,
   editUser,
