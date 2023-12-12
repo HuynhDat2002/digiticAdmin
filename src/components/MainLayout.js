@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import {
   AiOutlineDashboard,
@@ -17,8 +17,8 @@ import { FaClipboardList, FaBloggerB } from "react-icons/fa";
 import { SiBrandfolder } from "react-icons/si";
 import { BiCategoryAlt } from "react-icons/bi";
 import { Layout, Menu, theme } from "antd";
-import { useNavigate} from "react-router-dom";
-import { useDispatch,useSelector  } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from '../features/auth/authSlice'
 import axios from "axios";
 
@@ -32,32 +32,33 @@ const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
-  
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-    console.log('b')
-        const userData = JSON.parse(localStorage.getItem('user'));
-    const handleClickSignOut = () => {
-      axios.defaults.withCredentials=true;
-      dispatch(logout());    
-    }
+  const handleClickSignOut = () => {
+    axios.defaults.withCredentials = true;
+    dispatch(logout());
+  }
   console.log('b')
   const authState = useSelector((state) => state);
   const { user, isError, isSuccess, isLoading, message } = authState.auth;
-    
-    useEffect(()=>{
-     if(userData===null){
-        navigate("/",{relative:"path"})
-        console.log('a')
-      }
-      
-    },[isSuccess])
   
+  const userData = JSON.parse(localStorage.getItem('user'));
+  useEffect(() => {
+    console.log('isSuccessAdmin: ', isSuccess)
+
+    if (userData === null) {
+      navigate("/", { relative: "path" })
+      console.log('a')
+    }
+
+  }, [isSuccess])
+
   return (
     <Layout /* onContextMenu={(e) => e.preventDefault()} */>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -247,12 +248,12 @@ const MainLayout = () => {
                   <Link
                     className="dropdown-item py-1 mb-1"
                     style={{ height: "auto", lineHeight: "20px" }}
-     
+
                     onClick={handleClickSignOut}
-                    
+
                   >
-                  
-                      Signout
+
+                    Signout
 
 
                   </Link>

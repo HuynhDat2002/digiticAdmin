@@ -16,7 +16,7 @@ export const login = createAsyncThunk(
     try {
       return await authService.login(userData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -26,7 +26,7 @@ export const logout = createAsyncThunk("auth/logout",
     try {
       return await authService.logout();
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error);
   }
 }
 )
@@ -36,7 +36,7 @@ export const editUser = createAsyncThunk("auth/edit-user",
     try {
       return await authService.editUser(userData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -46,9 +46,20 @@ export const forgotPassword = createAsyncThunk("auth/forgot-password",
     try {
       return await authService.forgotPassword(email);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      console.log("error: ",error.response?.data)
+      return thunkAPI.rejectWithValue(error.response?.data);
     }
   }
+);
+
+export const resetPassword = createAsyncThunk("auth/reset-password",
+async (data,thunkAPI)=>{
+  try {
+    return await authService.resetPassword(data);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response?.data);
+  }
+}
 );
 
 
@@ -58,7 +69,7 @@ export const getOrders = createAsyncThunk(
     try {
       return await authService.getOrders();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -68,7 +79,7 @@ export const getOrderByUser = createAsyncThunk(
     try {
       return await authService.getOrder(id);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -79,6 +90,7 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+    // login
       .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
@@ -95,6 +107,8 @@ export const authSlice = createSlice({
         state.message = action.error;
         state.isLoading = false;
       })
+
+      //logout
       .addCase(logout.pending, (state) => {
         state.isLoading = true;
       })
@@ -111,6 +125,8 @@ export const authSlice = createSlice({
         state.message = action.error;
         state.isLoading = false;
       })
+
+      //editUser
       .addCase(editUser.pending, (state) => {
         state.isLoading = true;
       
@@ -130,6 +146,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
 
+      // forgot Password
       .addCase(forgotPassword.pending, (state) => {
         state.isLoading = true;
       
@@ -145,9 +162,31 @@ export const authSlice = createSlice({
       .addCase(forgotPassword.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.error;
+        state.message = action.payload.message;
         state.isLoading = false;
       })
+
+       // reset Password
+       .addCase(resetPassword.pending, (state) => {
+        state.isLoading = true;
+      
+
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+        state.message = "success";
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error.payload.message;
+        state.isLoading = false;
+      })
+
+      // getOrders
       .addCase(getOrders.pending, (state) => {
         state.isLoading = true;
       })
@@ -164,6 +203,7 @@ export const authSlice = createSlice({
         state.message = action.error;
         state.isLoading = false;
       })
+      //getOrderByUser
       .addCase(getOrderByUser.pending, (state) => {
         state.isLoading = true;
       })

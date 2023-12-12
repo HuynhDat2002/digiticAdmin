@@ -77,6 +77,12 @@ main::-webkit-scrollbar {
   font-size: 12px;
 }
 
+.success {
+  color: green;
+  font-size: 12px;
+
+}
+
 .main-body {
   padding: 15px;
 }

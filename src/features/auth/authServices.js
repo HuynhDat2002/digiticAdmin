@@ -53,9 +53,25 @@ const editUser = async (user) => {
 
 const forgotPassword = async (email) => {
   const response = await axios.post(`${base_url}user/forgot-password-token`,email);
-  console.log(response.data);
+  if (response.data) {
+    localStorage.setItem("tokenPassword", response.data);
+    const tokenPassword= localStorage.getItem("tokenPassword");
+    console.log("tokenPassword: ",tokenPassword)
+  }
+  console.log('forgot password: ',response);
   return response.data;
 }
+
+const resetPassword = async (data) => {
+  console.log('a')
+  const response = await axios.put(`${base_url}user/reset-password/${data.token}`,data.password);
+  console.log(response.data);
+  if (response.data) {
+    localStorage.clearItem("tokenPassword");
+  }
+  return response.data;
+}
+
 
 const getOrders = async () => {
   const response = await axios.get(`${base_url}user/getallorders`, config);
@@ -73,10 +89,12 @@ const getOrder = async (id) => {
 };
 
 const authService = {
-  forgotPassword,
+
   login,
   logout,
   editUser,
+  forgotPassword,
+  resetPassword,
   getOrders,
   getOrder,
 };
