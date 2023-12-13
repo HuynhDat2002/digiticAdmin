@@ -46,8 +46,8 @@ export const forgotPassword = createAsyncThunk("auth/forgot-password",
     try {
       return await authService.forgotPassword(email);
     } catch (error) {
-      console.log("error: ",error.response?.data)
-      return thunkAPI.rejectWithValue(error.response?.data);
+      console.log("error: ",error)
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -57,7 +57,7 @@ async (data,thunkAPI)=>{
   try {
     return await authService.resetPassword(data);
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response?.data);
+    return thunkAPI.rejectWithValue(error);
   }
 }
 );
@@ -116,7 +116,6 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
         state.message = "success";
       })
       .addCase(logout.rejected, (state, action) => {
@@ -162,7 +161,7 @@ export const authSlice = createSlice({
       .addCase(forgotPassword.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.payload.message;
+        state.message = action.payl;
         state.isLoading = false;
       })
 
@@ -176,13 +175,12 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
         state.message = "success";
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.error.payload.message;
+        state.message = action.payl;
         state.isLoading = false;
       })
 

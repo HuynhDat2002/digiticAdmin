@@ -16,10 +16,10 @@ const logout = async () => {
   console.log('logout')
   await localStorage.removeItem("user");
   const response = await axios.get(`${base_url}user/logout`);
+  console.log("res: ",response.data)
   if(response) {
     await localStorage.clearItem();
   }
-
 
   return response.data;
 }

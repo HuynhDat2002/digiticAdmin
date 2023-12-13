@@ -15,14 +15,14 @@ const ResetPassword = () => {
   axios.defaults.withCredentials = true;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useParams().token;
+  const {token} = useParams();
 
   
   console.log('token: ', token  );
   let schema = yup.object().shape({
 
     password: yup.string().required("Password is Required"),
-    passwordConfirm: yup.string()
+    confirmPassword: yup.string()
       .oneOf([yup.ref('password')], 'Passwords must match')
       .required('Please confirm your password'),
 

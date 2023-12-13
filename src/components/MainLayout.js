@@ -31,6 +31,8 @@ import axios from "axios";
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
+  axios.defaults.withCredentials = true;
+
   const [collapsed, setCollapsed] = useState(false);
 
   const {
@@ -41,7 +43,6 @@ const MainLayout = () => {
   const dispatch = useDispatch();
 
   const handleClickSignOut = () => {
-    axios.defaults.withCredentials = true;
     dispatch(logout());
   }
   console.log('b')
