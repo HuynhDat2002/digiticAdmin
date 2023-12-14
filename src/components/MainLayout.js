@@ -221,8 +221,8 @@ const MainLayout = () => {
                 <img
                   width={32}
                   height={32}
-                  src={userData && userData.image.url}
-                  alt={userData && userData.image.public_id}
+                  src={userData && userData.image}
+                  alt="avatar"
                 />
               </div>
               <div
