@@ -42,7 +42,7 @@ const Login = () => {
     if (userData!==null) {
       navigate("/admin");
     }
-  }, [isSuccess]);
+  }, [localStorage.getItem("user")]);
   console.log('n')
   return (
     <div className="position-relative py-5 bg-ffd333 min-vh-100">
@@ -78,7 +78,7 @@ const Login = () => {
             {formik.touched.password && formik.errors.password}
           </div>
           <div className="mb-3 text-end">
-            <Link to="/forgot-password" className="">
+            <Link to="/forgot-password" className="" >
               Forgot Password?
             </Link>
           </div>

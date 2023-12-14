@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -33,8 +33,7 @@ const ForgotPassword = () => {
 
 
   const authState = useSelector((state) => state);
-  const { user, isError, isSuccess, isLoading, message } = authState.auth;
-
+  const {  message } = authState.auth;
   const tokenPassword = localStorage.getItem("tokenPassword")
   // useEffect(() => {
   //   console.log('forgot password')
@@ -43,7 +42,7 @@ const ForgotPassword = () => {
   //     navigate("/");
   //   }
   // }, [isSuccess]);
-  console.log(tokenPassword)
+  console.log("message: ",message)
   return (
     <div className="position-relative py-5 bg-ffd333 min-vh-100">
       <div className="position-fixed top-50 start-50 translate-middle my-5 w-25 bg-white rounded-3 mx-auto p-4">
@@ -52,7 +51,7 @@ const ForgotPassword = () => {
           Please Enter your register email to get reset password mail.
         </p>
         <form action="" onSubmit={formik.handleSubmit}>
-          {message}
+          {message && message.message}
           <CustomInput
             type="text"
             label="Email Address"
@@ -66,7 +65,7 @@ const ForgotPassword = () => {
             {formik.touched.email && formik.errors.email}
           </div>
           <div className="d-flex flex-row justify-content-between">
-            <Link to="/" className="d-flex mb-3 justify-content-end" onClick={localStorage.removeItem("tokenPassword")}>
+            <Link to="/" className="d-flex mb-3 justify-content-end" onClick={localStorage.removeItem('tokenPassword')}>
               Login
             </Link>
             {tokenPassword !== null && (

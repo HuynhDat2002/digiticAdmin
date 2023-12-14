@@ -14,14 +14,14 @@ const login = async (user) => {
 const logout = async () => {
   
   console.log('logout')
-  await localStorage.removeItem("user");
   const response = await axios.get(`${base_url}user/logout`);
-  console.log("res: ",response.data)
+  console.log("res: ",response)
   if(response) {
-    await localStorage.clearItem();
+    localStorage.removeItem("user");
+  
   }
 
-  return response.data;
+  return response.data || null;
 }
 
 const editUser = async (user) => {
@@ -30,9 +30,10 @@ const editUser = async (user) => {
   // console.log("before: ",userLogin)
   if (!userLogin) {
     // Handle the case where the token is missing
-    console.error("Token is missing");
+    console.log("Token is missing");
     return null;
   }
+  console.log("editToken: ",userLogin.token)
   const config = {
     headers: {
       "Authorization": 'Bearer ' + userLogin.token
@@ -43,7 +44,6 @@ const editUser = async (user) => {
   if (response.data) {
 
     // console.log("data edit: ",response.data)
-    await localStorage.removeItem("user")
     await localStorage.setItem("user", JSON.stringify(response.data));
   }
   const usera = JSON.parse(localStorage.getItem("user"))
@@ -63,12 +63,9 @@ const forgotPassword = async (email) => {
 }
 
 const resetPassword = async (data) => {
-  console.log('a')
-  const response = await axios.put(`${base_url}user/reset-password/${data.token}`,data.password);
-  console.log(response.data);
-  if (response.data) {
-    localStorage.clearItem("tokenPassword");
-  }
+  console.log("data:",data.password)
+  const response = await axios.put(`${base_url}user/reset-password/${data.token}`,{password:data.password});
+ 
   return response.data;
 }
 

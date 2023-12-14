@@ -36,7 +36,7 @@ export const editUser = createAsyncThunk("auth/edit-user",
     try {
       return await authService.editUser(userData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.response?.data);
     }
   }
 );
@@ -57,7 +57,8 @@ async (data,thunkAPI)=>{
   try {
     return await authService.resetPassword(data);
   } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+    console.log("error reset: ",error.response?.data)
+    return thunkAPI.rejectWithValue(error.response?.data);
   }
 }
 );
@@ -141,7 +142,7 @@ export const authSlice = createSlice({
       .addCase(editUser.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.error;
+        state.message = action.payload;
         state.isLoading = false;
       })
 
@@ -161,7 +162,7 @@ export const authSlice = createSlice({
       .addCase(forgotPassword.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.payl;
+        state.message = action.error;
         state.isLoading = false;
       })
 
@@ -180,7 +181,7 @@ export const authSlice = createSlice({
       .addCase(resetPassword.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.payl;
+        state.message = action.payload;
         state.isLoading = false;
       })
 

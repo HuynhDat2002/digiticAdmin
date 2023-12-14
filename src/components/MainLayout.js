@@ -48,17 +48,16 @@ const MainLayout = () => {
   console.log('b')
   const authState = useSelector((state) => state);
   const { user, isError, isSuccess, isLoading, message } = authState.auth;
-  
+  console.log('user main: ',user);
   const userData = JSON.parse(localStorage.getItem('user'));
   useEffect(() => {
-    console.log('isSuccessAdmin: ', isSuccess)
-
+  
+    console.log("user: ",userData)
     if (userData === null) {
       navigate("/", { relative: "path" })
-      console.log('a')
     }
 
-  }, [isSuccess])
+  }, [localStorage.getItem("user")])
 
   return (
     <Layout /* onContextMenu={(e) => e.preventDefault()} */>

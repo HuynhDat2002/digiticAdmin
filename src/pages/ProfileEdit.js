@@ -2,29 +2,27 @@ import { Fragment } from 'react'
 import { Transition, Dialog } from '@headlessui/react'
 import CustomInput from "../components/CustomInput";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editUser } from "../features/auth/authSlice";
 import * as yup from "yup";
 import CustomButton from '../components/CustomButton';
 // import authService from '../features/auth/authServices';
 
 const ProfileEdit = ({ isOpen, closeModal }) => {
-    const userData=JSON.parse(localStorage.getItem('user'));
+    const userData = JSON.parse(localStorage.getItem('user'));
 
 
-    let validationSchema = () => {
-        yup.object().shape({
-            firstname: yup.string().required("Firstname is Required"),
-            lastname: yup.string().required("Lastname is Required"),
-            email: yup
-                .string()
-                .email("Email should be valid")
-                .required("Email is Required"),
-            password: yup.string().required("Password is Required"),
-            mobile: yup.string().required("Mobile is Required"),
-            address: yup.string().required("Address is Required"),
-        });
-    }
+    let schema = yup.object().shape({
+        firstname: yup.string().required("Firstname is Required"),
+        lastname: yup.string().required("Lastname is Required"),
+        email: yup
+            .string()
+            .email("Email should be valid")
+            .required("Email is Required"),
+        mobile: yup.string().required("Mobile is Required"),
+        address: yup.string().required("Address is Required"),
+    });
+
 
 
 
@@ -39,14 +37,15 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
             address: userData && userData.address
 
         },
-        validationSchema: validationSchema(),
+        validationSchema: schema,
         onSubmit: (values) => {
             console.log("value edit: ", values)
             dispatch(editUser(values))
             closeModal()
         },
     });
-
+    const authState = useSelector((state) => state);
+    const { isError, isSuccess, isLoading, message } = authState.auth;
     return (
 
         <Transition appear show={isOpen} as={Fragment}>
@@ -77,9 +76,9 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
 
                                 <form onSubmit={formik.handleSubmit}>
 
+                                    {message.message && message.message}
                                     <div className="d-flex flex-row w-100 gap-2">
                                         <div className="d-flex flex-column">
-
                                             <CustomInput
                                                 type="text"
                                                 label="Firstname"
@@ -151,7 +150,7 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
                                         type="submit"
                                         title="Submit"
                                     />
-                                   
+
                                 </form>
 
                             </Dialog.Panel>
