@@ -1,7 +1,8 @@
 import { React, useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
+import CustomButton from "../components/CustomButton"
 import ReactQuill from "react-quill";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
 import * as yup from "yup";
@@ -13,7 +14,7 @@ import { getColors } from "../features/color/colorSlice";
 import { Select } from "antd";
 import Dropzone from "react-dropzone";
 import { delImg, uploadImg } from "../features/upload/uploadSlice";
-import { createProducts, resetState } from "../features/product/productSlice";
+import { createProducts, resetState ,updateProduct,getAProduct} from "../features/product/productSlice";
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),
   description: yup.string().required("Description is Required"),
@@ -31,29 +32,40 @@ let schema = yup.object().shape({
 const Addproduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const getProdId = location.pathname.split("/")[3];
+
   const [color, setColor] = useState([]);
   const [images, setImages] = useState([]);
-  console.log(color);
-  useEffect(() => {
-    dispatch(getBrands());
-    dispatch(getCategories());
-    dispatch(getColors());
-  }, []);
-
+  
   const brandState = useSelector((state) => state.brand.brands);
   const catState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
+
   const imgState = useSelector((state) => state.upload.images);
   const newProduct = useSelector((state) => state.product);
-  const { isSuccess, isError, isLoading, createdProduct } = newProduct;
-  useEffect(() => {
-    if (isSuccess && createdProduct) {
-      toast.success("Product Added Successfullly!");
-    }
-    if (isError) {
-      toast.error("Something Went Wrong!");
-    }
-  }, [isSuccess, isError, isLoading]);
+  const { isSuccess, isError, isLoading, createdProduct,updatedProduct,product } = newProduct;
+  useEffect(()=>{
+
+    dispatch(getCategories());
+    dispatch(getBrands());
+    dispatch(getColors());
+  },[isSuccess, isError, isLoading, createdProduct])
+
+    useEffect(() => {
+      if (isSuccess && createdProduct) {
+        toast.success("Product Added Successfullly!");
+      }
+      if(isSuccess&& updatedProduct){
+        toast.success("Product Updated Successfullly!");
+
+      }
+      if (isError) {
+        toast.error("Something Went Wrong!");
+      }
+    }, [isSuccess, isError, isLoading]);
+
+    
   const coloropt = [];
   colorState.forEach((i) => {
     coloropt.push({
@@ -68,7 +80,8 @@ const Addproduct = () => {
       url: i.url,
     });
   });
-
+ 
+  console.log("img: ", imgState);
   useEffect(() => {
     formik.values.color = color ? color : " ";
     formik.values.images = img;
@@ -90,15 +103,16 @@ const Addproduct = () => {
       dispatch(createProducts(values));
       formik.resetForm();
       setColor(null);
-      setTimeout(() => {
-        dispatch(resetState());
-      }, 3000);
+      dispatch(resetState());
     },
   });
   const handleColors = (e) => {
     setColor(e);
-    console.log(color);
   };
+
+  const handleDeleteImage = (i) => {
+    setImages(images.filter(item => item.asset_id !== i.asset_id));
+  }
   return (
     <div>
       <h3 className="mb-4 title">Add Product</h3>
@@ -189,7 +203,7 @@ const Addproduct = () => {
             id=""
           >
             <option value="" disabled>
-              Select Category
+              Select Tag
             </option>
             <option value="featured">Featured</option>
             <option value="popular">Popular</option>
@@ -244,7 +258,7 @@ const Addproduct = () => {
                 <div className=" position-relative" key={j}>
                   <button
                     type="button"
-                    onClick={() => dispatch(delImg(i.public_id))}
+                    onClick={() => handleDeleteImage(i)}
                     className="btn-close position-absolute"
                     style={{ top: "10px", right: "10px" }}
                   ></button>
@@ -253,12 +267,7 @@ const Addproduct = () => {
               );
             })}
           </div>
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            Add Product
-          </button>
+        <CustomButton title ="Add Product" type="submit"/>
         </form>
       </div>
     </div>

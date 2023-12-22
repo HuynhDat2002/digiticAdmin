@@ -1,9 +1,12 @@
 import axios from "axios";
 import { config } from "../../utils/axiosconfig";
 import { base_url } from "../../utils/baseUrl";
+import {headersConfig } from "../../utils/headersConfig";
 const getBrands = async () => {
-  const response = await axios.get(`${base_url}brand/`);
-
+  const response = await axios.get(`${base_url}brand/`,config);
+  if(response.data){
+    console.log("brands: ",response.data);
+  }
   return response.data;
 };
 

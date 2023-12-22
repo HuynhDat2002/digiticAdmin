@@ -1,5 +1,6 @@
 import { React, useEffect } from "react";
 import CustomInput from "../components/CustomInput";
+import CustomButton from "../components/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,13 +12,16 @@ import {
   resetState,
   updateAProductCategory,
 } from "../features/pcategory/pcategorySlice";
+
 let schema = yup.object().shape({
   title: yup.string().required("Category Name is Required"),
 });
+
 const Addcat = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const getPCatId = location.pathname.split("/")[3];
+  console.log("pcatid: ",getPCatId)
   const navigate = useNavigate();
   const newCategory = useSelector((state) => state.pCategory);
   const {
@@ -85,12 +89,9 @@ const Addcat = () => {
           <div className="error">
             {formik.touched.title && formik.errors.title}
           </div>
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            {getPCatId !== undefined ? "Edit" : "Add"} Category
-          </button>
+       
+         
+          <CustomButton title={getPCatId !== undefined ? "Edit Category" : "Add Category"} />
         </form>
       </div>
     </div>

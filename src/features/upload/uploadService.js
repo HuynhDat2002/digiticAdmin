@@ -7,8 +7,11 @@ const uploadImg = async (data) => {
   return response.data;
 };
 const deleteImg = async (id) => {
+  const splitId = id.split('/');
+  const idImg = splitId[splitId.length-1]
+  console.log("id: ",id);
   const response = await axios.delete(
-    `${base_url}upload/delete-img/${id}`,
+    `${base_url}upload/delete-img/${idImg}`,
 
     config
   );

@@ -14,6 +14,7 @@ import Colorlist from "./pages/Colotlist";
 import Categorylist from "./pages/Categorylist";
 import Brandlist from "./pages/Brandlist";
 import Productlist from "./pages/Productlist";
+import ProductEdit from "./components/ProductEdit";
 import Addblog from "./pages/Addblog";
 import Addblogcat from "./pages/Addblogcat";
 import Addcolor from "./pages/Addcolor";
@@ -61,6 +62,7 @@ function App() {
           <Route path="brand/:id" element={<Addbrand />} />
           <Route path="list-product" element={<Productlist />} />
           <Route path="product" element={<Addproduct />} />
+          <Route path="product/:id" element = {<ProductEdit/>}/>
         </Route>
       </Routes>
     </Router>

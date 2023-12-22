@@ -1,11 +1,11 @@
 import { Fragment } from 'react'
 import { Transition, Dialog } from '@headlessui/react'
-import CustomInput from "../components/CustomInput";
+import CustomInput from "./CustomInput";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { editUser } from "../features/auth/authSlice";
 import * as yup from "yup";
-import CustomButton from '../components/CustomButton';
+import CustomButton from './CustomButton';
 // import authService from '../features/auth/authServices';
 
 const ProfileEdit = ({ isOpen, closeModal }) => {

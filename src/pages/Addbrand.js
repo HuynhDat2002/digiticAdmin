@@ -1,5 +1,7 @@
 import { React, useEffect } from "react";
 import CustomInput from "../components/CustomInput";
+import CustomButton from "../components/CustomButton";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -90,12 +92,8 @@ const Addbrand = () => {
           <div className="error">
             {formik.touched.title && formik.errors.title}
           </div>
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            {getBrandId !== undefined ? "Edit" : "Add"} Brand
-          </button>
+         
+          <CustomButton title= {getBrandId !== undefined ? "Edit Brand" : "Add Brand"}/>
         </form>
       </div>
     </div>

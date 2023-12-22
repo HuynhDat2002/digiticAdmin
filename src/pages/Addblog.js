@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
+import CustomButton from "../components/CustomButton";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Dropzone from "react-dropzone";
@@ -186,13 +187,8 @@ const Addblog = () => {
               );
             })}
           </div>
-
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            {getBlogId !== undefined ? "Edit" : "Add"} Blog
-          </button>
+            <CustomButton title={getBlogId !== undefined ? "Edit Blog" : "Add Blog"}/>
+        
         </form>
       </div>
     </div>

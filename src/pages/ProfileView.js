@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import ProfileEdit from './ProfileEdit'
+import ProfileEdit from '../components/ProfileEdit'
 import CustomButton from '../components/CustomButton'
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-
-
 
 
 const ProfileView = () => {
@@ -40,7 +37,7 @@ const ProfileView = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <div className="d-flex flex-column align-items-center text-center my-2">
-                                        <img src={userData && userData.image.url} alt={userData && userData.image.public_id} className="rounded-circle" width="150" />
+                                        <img src={userData && userData.image} alt="avatar" className="rounded-circle" width="150" />
                                         <div className="mt-3">
                                             <h4>{userData && userData.firstname } {userData && userData.lastname}</h4>
                                         </div>

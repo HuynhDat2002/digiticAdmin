@@ -58,7 +58,7 @@ async (data,thunkAPI)=>{
     return await authService.resetPassword(data);
   } catch (error) {
     console.log("error reset: ",error.response?.data)
-    return thunkAPI.rejectWithValue(error.response?.data);
+    return thunkAPI.rejectWithValue(error);
   }
 }
 );
@@ -181,7 +181,7 @@ export const authSlice = createSlice({
       .addCase(resetPassword.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.payload;
+        state.message = action.error;
         state.isLoading = false;
       })
 

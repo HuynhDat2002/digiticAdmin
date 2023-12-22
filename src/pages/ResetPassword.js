@@ -79,6 +79,10 @@ const ResetPassword = () => {
           />
           <div className="error mt-2">
             {formik.touched.confirmPassword && formik.errors.confirmPassword}
+            {formik.touched.confirmPassword && formik.values.confirmPassword === formik.values.password && (
+              <div className="text-success">Password matched</div>
+            )}
+
           </div>
           <CustomButton
             title="Reset Password"

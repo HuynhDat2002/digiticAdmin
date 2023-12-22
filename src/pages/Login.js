@@ -11,6 +11,7 @@ import axios from "axios";
 
 const Login = () => {
   axios.defaults.withCredentials=true;
+
   let schema = yup.object().shape({
     email: yup
       .string()
@@ -27,7 +28,7 @@ const Login = () => {
       password: "",
     },
     validationSchema: schema,
-    onSubmit: (values) => {
+    onSubmit: (values) => { 
       console.log("value login: ",values)
       dispatch(login(values));
     },
@@ -36,6 +37,7 @@ const Login = () => {
   const authState = useSelector((state) => state);
   const { user, isError, isSuccess, isLoading, message } = authState.auth;
   const userData = JSON.parse(localStorage.getItem('user'));
+  console.log("userLogin: ",userData);
   useEffect(() => {
     console.log('login')
     console.log('isSuccessLogin: ',isSuccess)
