@@ -42,7 +42,8 @@ const Bloglist = () => {
     dispatch(resetState());
     dispatch(getBlogs());
   }, []);
-  const getBlogState = useSelector((state) => state.blogs.blogs);
+  console.log("w",)
+  const getBlogState = useSelector((state) => state?.blogs?.blogs);
   const data1 = [];
   for (let i = 0; i < getBlogState.length; i++) {
     data1.push({

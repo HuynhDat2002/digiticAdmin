@@ -42,6 +42,7 @@ const Addblog = () => {
     blogImages,
     updatedBlog,
   } = blogState;
+  console.log("q",blogState)
   useEffect(() => {
     if (getBlogId !== undefined) {
       dispatch(getABlog(getBlogId));
