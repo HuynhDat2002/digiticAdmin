@@ -12,6 +12,7 @@ import { AiFillDelete, AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CustomModal from "../components/CustomModal";
 
+
 const columns = [
   {
     title: "SNo",
@@ -44,6 +45,7 @@ const Enquiries = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [enqId, setenqId] = useState("");
+  const enquiryState = useSelector(state=>state.enquiry)
   const showModal = (e) => {
     setOpen(true);
     setenqId(e);
@@ -56,6 +58,11 @@ const Enquiries = () => {
     dispatch(resetState());
     dispatch(getEnquiries());
   }, []);
+  // useEffect(() => {
+  //   // if(enquiryState.)
+  //   dispatch(resetState());
+  //   dispatch(getEnquiries());
+  // }, [enquiryState]);
   const enqState = useSelector((state) => state.enquiry.enquiries);
   const data1 = [];
   for (let i = 0; i < enqState.length; i++) {
