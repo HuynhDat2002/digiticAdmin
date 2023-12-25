@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from "../features/brand/brandSlice";
 import { getCategories } from "../features/pcategory/pcategorySlice";
 import { getColors } from "../features/color/colorSlice";
+import Color from "../components/Color";
 import { Select } from "antd";
 import Dropzone from "react-dropzone";
 import { delImg, uploadImg } from "../features/upload/uploadSlice";
