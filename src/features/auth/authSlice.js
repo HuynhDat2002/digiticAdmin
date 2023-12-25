@@ -84,6 +84,18 @@ export const getOrderByUser = createAsyncThunk(
     }
   }
 );
+export const updateOrderStatus = createAsyncThunk(
+  "order/update-order",
+  async (data, thunkAPI) => {
+    try {
+      console.log("upd",data.value);
+      return await authService.updateOrderStatus(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 
 export const authSlice = createSlice({
   name: "auth",
@@ -100,7 +112,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
-        state.message = "success";
+        state.message = "loggedin";
       })
       .addCase(login.rejected, (state, action) => {
         state.isError = true;
@@ -212,8 +224,27 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.orderbyuser = action.payload;
         state.message = "success";
+
       })
       .addCase(getOrderByUser.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+        state.isLoading = false;
+      })
+
+      .addCase(updateOrderStatus.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateOrderStatus.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.orderupdate = action.payload;
+        state.message = "success";
+        
+      })
+      .addCase(updateOrderStatus.rejected, (state, action) => {
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;

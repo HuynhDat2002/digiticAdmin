@@ -81,6 +81,7 @@ export const enquirySlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.deletedEnquiry = action.payload;
+        
       })
       .addCase(deleteAEnquiry.rejected, (state, action) => {
         state.isLoading = false;

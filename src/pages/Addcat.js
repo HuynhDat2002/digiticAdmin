@@ -89,7 +89,6 @@ const Addcat = () => {
           <div className="error">
             {formik.touched.title && formik.errors.title}
           </div>
-       
          
           <CustomButton title={getPCatId !== undefined ? "Edit Category" : "Add Category"} />
         </form>

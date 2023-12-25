@@ -26,8 +26,9 @@ const updateCoupon = async (coupon) => {
   return response.data;
 };
 const getCoupon = async (id) => {
-  const response = await axios.get(`${base_url}coupon/${id}`, config);
 
+  const response = await axios.get(`${base_url}coupon/${id}`, config);
+console.log("getcoupon: ",response.data)
   return response.data;
 };
 

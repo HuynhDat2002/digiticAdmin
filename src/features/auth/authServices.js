@@ -18,9 +18,9 @@ const logout = async () => {
   const response = await axios.get(`${base_url}user/logout`);
   console.log("res: ",response)
   if(response) {
-    localStorage.removeItem("user");
-  
+    await localStorage.clear();
   }
+
 
   return response.data || null;
 }
@@ -77,15 +77,22 @@ const getOrders = async () => {
   return response.data;
 };
 const getOrder = async (id) => {
-  const response = await axios.post(
+  const response = await axios.get(
     `${base_url}user/getorderbyuser/${id}`,
-    "",
     config
   );
 
   return response.data;
 };
 
+const updateOrderStatus = async (data) => {
+  const response = await axios.put(
+    `${base_url}user/order/update-order/${data.id}`,{status:data.value}, 
+    config
+  );
+
+  return response.data;
+};
 const authService = {
 
   login,
@@ -95,6 +102,7 @@ const authService = {
   resetPassword,
   getOrders,
   getOrder,
+  updateOrderStatus 
 };
 
 export default authService;

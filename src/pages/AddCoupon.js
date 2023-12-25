@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
+import CustomButton from "../components/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -22,8 +23,15 @@ const AddCoupon = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const getCouponId = location.pathname.split("/")[3];
+  console.log("cpid: ",getCouponId)
+  
+  const changeDateFormet = (date) => {
+    const newDate = new Date(date).toLocaleDateString();
+    const [month, day, year] = newDate.split("/");
+    return [year, month, day].join("-");
+  };
   const newCoupon = useSelector((state) => state.coupon);
-
+  console.log("nwcoupon: ",newCoupon);
   const {
     isSuccess,
     isError,
@@ -33,13 +41,8 @@ const AddCoupon = () => {
     couponDiscount,
     couponExpiry,
     updatedCoupon,
-  } = newCoupon;
-  const changeDateFormet = (date) => {
-    const newDate = new Date(date).toLocaleDateString();
-    const [month, day, year] = newDate.split("/");
-    return [year, month, day].join("-");
-  };
 
+  } = newCoupon;
   useEffect(() => {
     if (getCouponId !== undefined) {
       dispatch(getACoupon(getCouponId));
@@ -47,6 +50,7 @@ const AddCoupon = () => {
       dispatch(resetState());
     }
   }, [getCouponId]);
+
 
   useEffect(() => {
     if (isSuccess && createdCoupon) {
@@ -63,9 +67,9 @@ const AddCoupon = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: couponName || "",
+      name: couponName|| "",
       expiry: changeDateFormet(couponExpiry) || "",
-      discount: couponDiscount || "",
+      discount:couponDiscount || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -126,12 +130,8 @@ const AddCoupon = () => {
           <div className="error">
             {formik.touched.discount && formik.errors.discount}
           </div>
-          <button
-            className="btn btn-success border-0 rounded-3 my-5"
-            type="submit"
-          >
-            {getCouponId !== undefined ? "Edit" : "Add"} Coupon
-          </button>
+          <CustomButton title={getCouponId !== undefined ? "Edit Coupon" : "Add Coupon"} />
+
         </form>
       </div>
     </div>

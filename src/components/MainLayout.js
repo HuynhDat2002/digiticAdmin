@@ -65,7 +65,7 @@ const MainLayout = () => {
         <div className="logo">
           <h2 className="text-white fs-5 text-center py-3 mb-0">
             {/* <span className="sm-logo">DC</span> */}
-            <span className="lg-logo">Dev Corner</span>
+            <span className="lg-logo">DT Shop</span>
           </h2>
         </div>
         <Menu
@@ -107,7 +107,7 @@ const MainLayout = () => {
                 {
                   key: "brand",
                   icon: <SiBrandfolder className="fs-4" />,
-                  label: "Brand",
+                  label: "Add Brand",
                 },
                 {
                   key: "list-brand",
@@ -117,7 +117,7 @@ const MainLayout = () => {
                 {
                   key: "category",
                   icon: <BiCategoryAlt className="fs-4" />,
-                  label: "Category",
+                  label: "Add Category",
                 },
                 {
                   key: "list-category",
@@ -127,7 +127,7 @@ const MainLayout = () => {
                 {
                   key: "color",
                   icon: <AiOutlineBgColors className="fs-4" />,
-                  label: "Color",
+                  label: "Add Color",
                 },
                 {
                   key: "list-color",

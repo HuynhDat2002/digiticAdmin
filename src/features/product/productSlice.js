@@ -56,7 +56,7 @@ export const deleteProduct = createAsyncThunk(
 export const resetState = createAction("Reset_all");
 
 const initialState = {
-  updatedProduct:null,
+
   products: [],
   isError: false,
   isLoading: false,
@@ -107,7 +107,7 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.products = action.payload;
+        state.createdProduct=action.payload
       })
       .addCase(createProducts.rejected, (state, action) => {
         state.isLoading = false;

@@ -34,17 +34,16 @@ const Login = () => {
     },
   });
   
-  const authState = useSelector((state) => state);
-  const { user, isError, isSuccess, isLoading, message } = authState.auth;
+  const authState = useSelector((state) => state.auth);
+  const { user, isError, isSuccess, isLoading, message } = authState
   const userData = JSON.parse(localStorage.getItem('user'));
   console.log("userLogin: ",userData);
-  useEffect(() => {
-    console.log('login')
-    console.log('isSuccessLogin: ',isSuccess)
-    if (userData!==null) {
-      navigate("/admin");
-    }
-  }, [localStorage.getItem("user")]);
+  useEffect(()=>{
+    if(user.token && message==="loggedin")
+    navigate('/admin')
+
+    
+},[authState])
   console.log('n')
   return (
     <div className="position-relative py-5 bg-ffd333 min-vh-100">

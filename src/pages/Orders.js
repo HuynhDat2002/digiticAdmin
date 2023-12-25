@@ -5,6 +5,7 @@ import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { getOrders } from "../features/auth/authSlice";
+import { updateOrderStatus } from "../features/auth/authSlice";
 const columns = [
   {
     title: "SNo",
@@ -54,15 +55,27 @@ const Orders = () => {
       date: new Date(orderState[i].createdAt).toLocaleString(),
       action: (
         <>
-          <Link to="/" className=" fs-3 text-danger">
-            <BiEdit />
-          </Link>
-          <Link className="ms-3 fs-3 text-danger" to="/">
-            <AiFillDelete />
-          </Link>
+          <select name="" defaultValue={orderState[i]?.orderStatus} onChange={(e) => updateOrder(orderState[i]?._id, e.target.value)} className="form-control form-select" id="">
+            <option
+              value="Not Processed" disabled selected>Not Processed</option>
+            <option
+              value="Cash on Delivery">  Cash on Delivery</option>
+            <option value="Processing"> Processing</option>
+            <option
+              value="Dispatched"> Dispatched</option>
+            <option value="Cancelled">Cancelled</option>
+            <option value="Delivered">Delivered</option>
+
+          </select>
         </>
       ),
     });
+  }
+
+  const updateOrder = (id, value) => {
+    console.log("id", id);
+    console.log("value", value);
+    dispatch(updateOrderStatus({ id: id, value: value }))
   }
   return (
     <div>

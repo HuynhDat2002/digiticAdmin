@@ -9,12 +9,19 @@ import {deleteProduct,resetState} from '../features/product/productSlice'
 import { toast } from "react-toastify";
 import axios from "axios";
 import ProductEdit from '../components/ProductEdit'
+import CustomModal from "../components/CustomModal";
 
 
 
 
 const Productlist = () => {
   axios.defaults.withCredentials=true;
+  const [openDelete, setOpenDelete] = useState(false);
+  const [proId,setProId] = useState("");
+  const showModal = (e) => {
+    setOpenDelete(true);
+    setProId(e);
+  };
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [dataProd,setDataProd] = useState();
   const dispatch = useDispatch();
@@ -110,7 +117,7 @@ const Productlist = () => {
           <Link to = {`/admin/product/${productState[i]._id}`} className=" fs-3 text-danger">
             <BiEdit />
           </Link>
-          <Link  className=" fs-3 text-ms-3 fs-3 text-danger" onClick={()=>dispatch(deleteProduct(productState[i]._id))}>
+          <Link  className=" fs-3 text-ms-3 fs-3 text-danger" onClick={()=>showModal(productState[i]._id)}>
             <AiFillDelete />
           </Link>
         </>
@@ -118,7 +125,14 @@ const Productlist = () => {
     });
   }
   
+  const deleteAProduct = (e) => {
+    dispatch(deleteProduct(e));
 
+    setOpenDelete(false);
+    setTimeout(() => {
+      dispatch(getProducts());
+    }, 100);
+  };
   console.log("data1:",data1);
   return (
     <>
@@ -126,6 +140,14 @@ const Productlist = () => {
       <div className="z-0">
          <Table columns={columns} dataSource={data1} /> 
       </div>
+      <CustomModal
+        hideModal={()=>setOpenDelete(false)}
+        open={openDelete}
+        performAction={() => {
+          deleteAProduct(proId);
+        }}
+        title="Are you sure you want to delete this product?"
+      />
     </>
   );
 };
