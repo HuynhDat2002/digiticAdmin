@@ -25,16 +25,15 @@ const ProductEdit = () => {
     axios.defaults.withCredentials = true;
 
     let schema = yup.object().shape({
-        title: yup.string().required("Title is Required"),
-        description: yup.string().required("Description is Required"),
-        price: yup.number().required("Price is Required"),
-        brand: yup.string().required("Brand is Required"),
-        category: yup.string().required("Category is Required"),
-        tags: yup.string().required("Tag is Required"),
+        title: yup.string().required(" Không được để trống"),
+        description: yup.string().required(" Không được để trống"),
+        price: yup.number().required(" Không được để trống"),
+        category: yup.string().required(" Không được để trống"),
+        tags: yup.string().required(" Không được để trống"),
         color: yup
             .array()
-            .required("Color is Required"),
-        quantity: yup.number().required("Quantity is Required"),
+            .required(" Không được để trống"),
+        quantity: yup.number().required(" Không được để trống"),
     });
 
 
@@ -71,12 +70,12 @@ const ProductEdit = () => {
     useEffect(() => {
 
         if (isSuccess && updatedProduct) {
-            toast.success("Product Updated Successfullly!");
+            toast.success("Cập nhật sản phẩm thành công");
             
             navigate("/admin/list-product");
         }
         if (isError) {
-            toast.error("Something Went Wrong!");
+            toast.error("Lỗi");
         }
     }, [isSuccess, isError, isLoading]);
     const colorProd = []
@@ -162,7 +161,7 @@ const ProductEdit = () => {
     }
     return (
             <div>
-                <h3 className="mb-4 title">Edit Product</h3>
+                <h3 className="mb-4 title">Chỉnh sửa</h3>
                 <div>
                     <form
                         onSubmit={formik.handleSubmit}
@@ -170,7 +169,7 @@ const ProductEdit = () => {
                     >
                         <CustomInput
                             type="text"
-                            label="Enter Product Title"
+                            label="Nhập tên sản phẩm"
                             name="title"
                             onChng={formik.handleChange("title")}
                             onBlr={formik.handleBlur("title")}
@@ -192,7 +191,7 @@ const ProductEdit = () => {
                         </div>
                         <CustomInput
                             type="number"
-                            label="Enter Product Price"
+                            label="Nhập giá sản phẩm "
                             name="price"
                             onChng={formik.handleChange("price")}
                             onBlr={formik.handleBlur("price")}
@@ -209,7 +208,7 @@ const ProductEdit = () => {
                             className="form-control py-3 mb-3"
                             id=""
                         >
-                            <option value="">Select Brand</option>
+                            <option value="">Chọn hãng</option>
                             {brandState.map((i, j) => {
                                 return (
                                     <option key={j} value={i.title}>
@@ -229,7 +228,7 @@ const ProductEdit = () => {
                             className="form-control py-3 mb-3"
                             id=""
                         >
-                            <option value="">Select Category</option>
+                            <option value="">Chọn loại sản phẩm</option>
                             {catState.map((i, j) => {
                                 return (
                                     <option key={j} value={i.title}>
@@ -250,11 +249,11 @@ const ProductEdit = () => {
                             id=""
                         >
                             <option value="" disabled>
-                                Select Tag
+                                Tags
                             </option>
-                            <option value="featured">Featured</option>
-                            <option value="popular">Popular</option>
-                            <option value="special">Special</option>
+                            <option value="featured">Sản phẩm bán chạy</option>
+                            <option value="popular">Sản phẩm nổi tiếng</option>
+                            <option value="special">Sản phẩm đặc biệt</option>
                         </select>
                         <div className="error">
                             {formik.touched.tags && formik.errors.tags}
@@ -264,7 +263,7 @@ const ProductEdit = () => {
                             mode="multiple"
                             allowClear
                             className="w-100"
-                            placeholder="Select colors"
+                            placeholder="Chọn màu"
                             defaultValue={colorProd.filter((e) => e.label)}
                             onChange={(i) => handleColors(i)}
                             options={coloropt}
@@ -274,7 +273,7 @@ const ProductEdit = () => {
                         </div>
                         <CustomInput
                             type="number"
-                            label="Enter Product Quantity"
+                            label="Nhập số lượng sản phẩm"
                             name="quantity"
                             onChng={formik.handleChange("quantity")}
                             onBlr={formik.handleBlur("quantity")}
@@ -292,7 +291,7 @@ const ProductEdit = () => {
                                         <div {...getRootProps()}>
                                             <input {...getInputProps()} />
                                             <p >
-                                                Drag 'n' drop some files here, or click to select files
+                                                Kéo thả file ở đây hoặc click để chọn file
                                             </p>
                                         </div>
                                     </section>
@@ -327,7 +326,7 @@ const ProductEdit = () => {
                                 );
                             })}
                         </div>
-                        <CustomButton title="Submit" type="submit" />
+                        <CustomButton title="Sửa" type="submit" />
                     </form>
                 </div>
             </div>

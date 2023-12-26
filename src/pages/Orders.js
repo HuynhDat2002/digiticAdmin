@@ -8,28 +8,28 @@ import { getOrders, updateAOrder } from "../features/auth/authSlice";
 import { updateOrderStatus } from "../features/auth/authSlice";
 const columns = [
   {
-    title: "SNo",
+    title: "STT",
     dataIndex: "key",
   },
   {
-    title: "Name",
+    title: "Tên khách hàng",
     dataIndex: "name",
   },
   {
-    title: "Product",
+    title: "Sản Phẩm",
     dataIndex: "product",
   },
   {
-    title: "Amount",
+    title: "Tổng cộng",
     dataIndex: "amount",
   },
   {
-    title: "Date",
+    title: "Ngày mua",
     dataIndex: "date",
   },
 
   {
-    title: "Action",
+    title: "Hành động",
     dataIndex: "action",
   },
 ];
@@ -48,7 +48,7 @@ const Orders = () => {
       name: orderState[i]?.user?.firstname,
       product: (
         <Link to={`/admin/order/${orderState[i]?._id}`}>
-          View Orders
+          Xem chi tiết
         </Link>
       ),
       amount: orderState[i]?.totalPrice,
@@ -78,7 +78,7 @@ const Orders = () => {
 
   return (
     <div>
-      <h3 className="mb-4 title">Orders</h3>
+      <h3 className="mb-4 title">Đơn đặt hàng</h3>
       <div>{<Table columns={columns} dataSource={data1} />}</div>
     </div>
   );

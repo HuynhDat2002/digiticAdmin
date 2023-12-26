@@ -13,7 +13,7 @@ import {
   updateAColor,
 } from "../features/color/colorSlice";
 let schema = yup.object().shape({
-  title: yup.string().required("Color is Required"),
+  title: yup.string().required("Xin hãy chọn màu sản phẩm"),
 });
 const Addcolor = () => {
   const dispatch = useDispatch();
@@ -38,14 +38,14 @@ const Addcolor = () => {
   }, [getColorId]);
   useEffect(() => {
     if (isSuccess && createdColor) {
-      toast.success("Color Added Successfullly!");
+      toast.success("Thêm màu thành công");
     }
     if (isSuccess && updatedColor) {
-      toast.success("Color Updated Successfullly!");
+      toast.success("Cập nhật thành công");
       navigate("/admin/list-color");
     }
     if (isError) {
-      toast.error("Something Went Wrong!");
+      toast.error("Gặp lỗi");
     }
   }, [isSuccess, isError, isLoading, createdColor]);
   const formik = useFormik({
@@ -71,13 +71,13 @@ const Addcolor = () => {
   return (
     <div>
       <h3 className="mb-4 title">
-        {getColorId !== undefined ? "Edit" : "Add"} Color
+        {getColorId !== undefined ? "Edit" : "Thêm"} màu sản phẩm
       </h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="color"
-            label="Enter Product Color"
+            label="Chọn màu sản phẩm"
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
@@ -86,7 +86,7 @@ const Addcolor = () => {
           <div className="error">
             {formik.touched.title && formik.errors.title}
           </div>
-          <CustomButton title={getColorId !== undefined ? "Edit Color" : "Add Color"} />
+          <CustomButton title={getColorId !== undefined ? "Edit Color" : "Thêm màu sản phẩm"} />
 
         </form>
       </div>

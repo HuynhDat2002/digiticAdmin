@@ -15,9 +15,9 @@ const Login = () => {
   let schema = yup.object().shape({
     email: yup
       .string()
-      .email("Email should be valid")
-      .required("Email is Required"),
-    password: yup.string().required("Password is Required"),
+      .email("Không được bỏ trống")
+      .required("Không được bỏ trống"),
+    password: yup.string().required("Không được bỏ trống"),
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,15 +48,15 @@ const Login = () => {
   return (
     <div className="position-relative py-5 bg-ffd333 min-vh-100">
       <div className=" position-fixed top-50 start-50 translate-middle my-auto w-25 bg-white rounded-3 mx-auto p-4">
-        <h3 className="text-center title">Login</h3>
-        <p className="text-center">Login to your account to continue.</p>
+        <h3 className="text-center title">Đăng nhập</h3>
+        <p className="text-center">Đăng nhập để tiếp tục.</p>
         <div className="error text-center">
           {message.message === "Rejected" ? "You are not an Admin" : ""}
         </div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
-            label="Email Address"
+            label="Email "
             id="email"
             name="email"
             onChng={formik.handleChange("email")}
@@ -68,7 +68,7 @@ const Login = () => {
           </div>
           <CustomInput
             type="password"
-            label="Password"
+            label="Mật khẩu"
             id="pass"
             name="password"
             onChng={formik.handleChange("password")}
@@ -80,11 +80,11 @@ const Login = () => {
           </div>
           <div className="mb-3 text-end">
             <Link to="/forgot-password" className="" >
-              Forgot Password?
+             Quên mật khẩu ?
             </Link>
           </div>
           <CustomButton
-            title="Login"
+            title="Đăng nhập"
           />
         </form>
       </div>

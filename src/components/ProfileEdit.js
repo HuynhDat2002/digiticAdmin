@@ -13,14 +13,14 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
 
 
     let schema = yup.object().shape({
-        firstname: yup.string().required("Firstname is Required"),
-        lastname: yup.string().required("Lastname is Required"),
+        firstname: yup.string().required("Không được bỏ trống"),
+        lastname: yup.string().required("Không được bỏ trống"),
         email: yup
             .string()
-            .email("Email should be valid")
-            .required("Email is Required"),
-        mobile: yup.string().required("Mobile is Required"),
-        address: yup.string().required("Address is Required"),
+            .email("Không được bỏ trống")
+            .required("Không được bỏ trống"),
+        mobile: yup.string().required("Không được bỏ trống"),
+        address: yup.string().required("Không được bỏ trống"),
     });
 
 
@@ -81,7 +81,7 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
                                         <div className="d-flex flex-column">
                                             <CustomInput
                                                 type="text"
-                                                label="Firstname"
+                                                label="Họ"
                                                 id="firstname"
                                                 name="firstname"
                                                 onChng={formik.handleChange("firstname")}
@@ -96,7 +96,7 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
 
                                             <CustomInput
                                                 type="text"
-                                                label="Lastname"
+                                                label="Tên"
                                                 id="lastname"
                                                 name="lastname"
                                                 onChng={formik.handleChange("lastname")}
@@ -110,7 +110,7 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
                                     </div>
                                     <CustomInput
                                         type="text"
-                                        label="Email Address"
+                                        label="Email "
                                         id="email"
                                         name="email"
                                         onChng={formik.handleChange("email")}
@@ -123,7 +123,7 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
 
                                     <CustomInput
                                         type="text"
-                                        label="Mobile"
+                                        label="Số điện thoại"
                                         id="mobile"
                                         name="mobile"
                                         onChng={formik.handleChange("mobile")}
@@ -135,7 +135,7 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
                                     </div>
                                     <CustomInput
                                         type="text"
-                                        label="Address"
+                                        label="Địa chỉ"
                                         id="address"
                                         name="address"
                                         onChng={formik.handleChange("address")}
@@ -148,7 +148,7 @@ const ProfileEdit = ({ isOpen, closeModal }) => {
 
                                     <CustomButton
                                         type="submit"
-                                        title="Submit"
+                                        title="Sửa"
                                     />
 
                                 </form>

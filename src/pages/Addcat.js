@@ -14,7 +14,7 @@ import {
 } from "../features/pcategory/pcategorySlice";
 
 let schema = yup.object().shape({
-  title: yup.string().required("Category Name is Required"),
+  title: yup.string().required("Không được bỏ trống"),
 });
 
 const Addcat = () => {
@@ -41,14 +41,14 @@ const Addcat = () => {
   }, [getPCatId]);
   useEffect(() => {
     if (isSuccess && createdCategory) {
-      toast.success("Category Added Successfullly!");
+      toast.success("Thêm thành công");
     }
     if (isSuccess && updatedCategory) {
-      toast.success("Category Updated Successfullly!");
+      toast.success("Cập nhật thành công");
       navigate("/admin/list-category");
     }
     if (isError) {
-      toast.error("Something Went Wrong!");
+      toast.error("Gặp lỗi");
     }
   }, [isSuccess, isError, isLoading]);
   const formik = useFormik({
@@ -74,13 +74,13 @@ const Addcat = () => {
   return (
     <div>
       <h3 className="mb-4  title">
-        {getPCatId !== undefined ? "Edit" : "Add"} Category
+        {getPCatId !== undefined ? "Edit" : "Thêm"} loại sản phẩm
       </h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
           <CustomInput
             type="text"
-            label="Enter Product Category"
+            label="Nhập loại sản phẩm"
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
@@ -90,7 +90,7 @@ const Addcat = () => {
             {formik.touched.title && formik.errors.title}
           </div>
          
-          <CustomButton title={getPCatId !== undefined ? "Edit Category" : "Add Category"} />
+          <CustomButton title={getPCatId !== undefined ? "Edit Category" : "Thêm"} />
         </form>
       </div>
     </div>

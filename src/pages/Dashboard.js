@@ -7,27 +7,27 @@ import { getMonthlyData, getOrders, getYearlyData } from "../features/auth/authS
 import {config3} from '../utils/axiosconfig'
 const columns = [
   {
-    title: "SNo",
+    title: "STT",
     dataIndex: "key",
   },
   {
-    title: "Name",
+    title: "Tên",
     dataIndex: "name",
   },
   {
-    title: "Product Count",
+    title: "Số lượng sản phẩm",
     dataIndex: "product",
   },
   {
-    title: "Total Price",
+    title: "Tổng cộng",
     dataIndex: "price",
   },
   {
-    title: "Total Price After Discount",
+    title: "Sau khi giảm giá",
     dataIndex: "dprice",
   },
   {
-    title: "Status",
+    title: "Trạng thái",
     dataIndex: "status",
   },
 ];
