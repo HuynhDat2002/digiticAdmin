@@ -10,3 +10,15 @@ export const config = {
     Accept: "application/json",
   },
 };
+
+export const config3 =(auth)=> {
+  return{
+
+    headers: {
+      Authorization: `Bearer ${
+        auth !== null ? auth?.token : ""
+      }`,
+      Accept: "application/json",
+    },
+  }
+};
