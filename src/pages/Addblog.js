@@ -80,7 +80,7 @@ const Addblog = () => {
   console.log(img);
   useEffect(() => {
     formik.values.images = img;
-  }, [blogImages]);
+  }, [imgState]);
 
   const formik = useFormik({
     enableReinitialize: true,
