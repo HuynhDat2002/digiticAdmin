@@ -9,15 +9,15 @@ import CustomModal from "../components/CustomModal";
 
 const columns = [
   {
-    title: "SNo",
+    title: "STT",
     dataIndex: "key",
   },
   {
-    title: "Name",
+    title: "Tên",
     dataIndex: "name",
   },
   {
-    title: "Action",
+    title: "Hành động",
     dataIndex: "action",
   },
 ];
@@ -71,7 +71,7 @@ const Colorlist = () => {
   };
   return (
     <div>
-      <h3 className="mb-4 title">Colors</h3>
+      <h3 className="mb-4 title">Màu sản phẩm</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -81,7 +81,7 @@ const Colorlist = () => {
         performAction={() => {
           deleteColor(colorId);
         }}
-        title="Are you sure you want to delete this color?"
+        title="Bạn có muốn xóa màu này không?"
       />
     </div>
   );

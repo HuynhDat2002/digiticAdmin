@@ -17,17 +17,17 @@ import Dropzone from "react-dropzone";
 import { delImg, uploadImg } from "../features/upload/uploadSlice";
 import { createProducts, resetState } from "../features/product/productSlice";
 let schema = yup.object().shape({
-  title: yup.string().required("Title is Required"),
-  description: yup.string().required("Description is Required"),
-  price: yup.number().required("Price is Required"),
-  brand: yup.string().required("Brand is Required"),
-  category: yup.string().required("Category is Required"),
-  tags: yup.string().required("Tag is Required"),
+  title: yup.string().required("Không được bỏ trống"),
+  description: yup.string().required("Không được bỏ trống"),
+  price: yup.number().required("Không được bỏ trống"),
+  brand: yup.string().required("Không được bỏ trống"),
+  category: yup.string().required("Không được bỏ trống"),
+  tags: yup.string().required("Không được bỏ trống"),
   color: yup
     .array()
-    .min(1, "Pick at least one color")
-    .required("Color is Required"),
-  quantity: yup.number().required("Quantity is Required"),
+    .min(1, "Chọn ít nhất 1 màu")
+    .required("Không được bỏ trống"),
+  quantity: yup.number().required("Không được bỏ trống"),
 });
 
 const Addproduct = () => {
@@ -51,10 +51,10 @@ const Addproduct = () => {
 console.log('NPRO',newProduct);
   useEffect(() => {
     if (isSuccess && createdProduct) {
-      toast.success("Product Added Successfullly!");
+      toast.success("Thêm sản phẩm thành công");
     }
     if (isError) {
-      toast.error("Something Went Wrong!");
+      toast.error("Gặp lỗi");
     }
   }, [isSuccess, isError, isLoading]);
   const coloropt = [];
@@ -104,7 +104,7 @@ console.log('NPRO',newProduct);
   };
   return (
     <div>
-      <h3 className="mb-4 title">Add Product</h3>
+      <h3 className="mb-4 title">Thêm sản phẩm</h3>
       <div>
         <form
           onSubmit={formik.handleSubmit}
@@ -112,7 +112,7 @@ console.log('NPRO',newProduct);
         >
           <CustomInput
             type="text"
-            label="Enter Product Title"
+            label="Nhập tên sản phẩm"
             name="title"
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
@@ -134,7 +134,7 @@ console.log('NPRO',newProduct);
           </div>
           <CustomInput
             type="number"
-            label="Enter Product Price"
+            label="Nhập giá sản phẩm"
             name="price"
             onChng={formik.handleChange("price")}
             onBlr={formik.handleBlur("price")}
@@ -151,7 +151,7 @@ console.log('NPRO',newProduct);
             className="form-control py-3 mb-3"
             id=""
           >
-            <option value="">Select Brand</option>
+            <option value="">Chọn hãng</option>
             {brandState.map((i, j) => {
               return (
                 <option key={j} value={i.title}>
@@ -171,7 +171,7 @@ console.log('NPRO',newProduct);
             className="form-control py-3 mb-3"
             id=""
           >
-            <option value="">Select Category</option>
+            <option value="">Chọn loại sản phẩm</option>
             {catState.map((i, j) => {
               return (
                 <option key={j} value={i.title}>
@@ -192,11 +192,11 @@ console.log('NPRO',newProduct);
             id=""
           >
             <option value="" disabled>
-              Select Category
+              Chọn kiểu sản phẩm
             </option>
-            <option value="featured">Featured</option>
-            <option value="popular">Popular</option>
-            <option value="special">Special</option>
+            <option value="featured">Bán chạy</option>
+            <option value="popular">Nổi tiếng</option>
+            <option value="special">Đặc biệt</option>
           </select>
           <div className="error">
             {formik.touched.tags && formik.errors.tags}
@@ -206,7 +206,7 @@ console.log('NPRO',newProduct);
             mode="multiple"
             allowClear
             className="w-100"
-            placeholder="Select colors"
+            placeholder="Chọn màu"
             defaultValue={color}
             onChange={(i) => handleColors(i)}
             options={coloropt}
@@ -216,7 +216,7 @@ console.log('NPRO',newProduct);
           </div>
           <CustomInput
             type="number"
-            label="Enter Product Quantity"
+            label="Nhập số lượng sản phẩm"
             name="quantity"
             onChng={formik.handleChange("quantity")}
             onBlr={formik.handleBlur("quantity")}
@@ -234,7 +234,7 @@ console.log('NPRO',newProduct);
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     <p>
-                      Drag 'n' drop some files here, or click to select files
+                      Kéo thả file vào đây hoặc click để chọn file
                     </p>
                   </div>
                 </section>
@@ -256,7 +256,7 @@ console.log('NPRO',newProduct);
               );
             })}
           </div>
-         <CustomButton title="Add Product"/>
+         <CustomButton title="Thêm sản phẩm"/>
         </form>
       </div>
     </div>

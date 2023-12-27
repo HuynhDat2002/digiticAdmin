@@ -14,8 +14,8 @@ const ForgotPassword = () => {
   let schema = yup.object().shape({
     email: yup
       .string()
-      .email("Email should be valid")
-      .required("Email is Required"),
+      .email("Không được bỏ trống")
+      .required("Không được bỏ trống"),
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,15 +46,15 @@ const ForgotPassword = () => {
   return (
     <div className="position-relative py-5 bg-ffd333 min-vh-100">
       <div className="position-fixed top-50 start-50 translate-middle my-5 w-25 bg-white rounded-3 mx-auto p-4">
-        <h3 className="text-center title">Forgot Password</h3>
+        <h3 className="text-center title">Quên mật khẩu</h3>
         <p className="text-center">
-          Please Enter your register email to get reset password mail.
+          Nhập Email đăng ký của bạn để khôi phục mật khẩu
         </p>
         <form action="" onSubmit={formik.handleSubmit}>
           {message && message.message}
           <CustomInput
             type="text"
-            label="Email Address"
+            label="Email "
             id="email"
             name="email"
             onChng={formik.handleChange("email")}
@@ -66,7 +66,7 @@ const ForgotPassword = () => {
           </div>
           <div className="d-flex flex-row justify-content-between">
             <Link to="/" className="d-flex mb-3 justify-content-end" onClick={localStorage.removeItem('tokenPassword')}>
-              Login
+              Đăng nhập
             </Link>
             {tokenPassword !== null && (
               <button type="submit" className="mb-3 border border-0 bg-transparent text-primary text-decoration-underline justify-content-start">
@@ -75,7 +75,7 @@ const ForgotPassword = () => {
             )}
           </div>
           <CustomButton
-            title="Send Link"
+            title="Gửi"
           />
 
         </form>

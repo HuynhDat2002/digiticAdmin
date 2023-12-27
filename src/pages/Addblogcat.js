@@ -13,7 +13,7 @@ import {
   updateABlogCat,
 } from "../features/bcategory/bcategorySlice";
 let schema = yup.object().shape({
-  title: yup.string().required("Category Name is Required"),
+  title: yup.string().required("Không được bỏ trống"),
 });
 const Addblogcat = () => {
   const dispatch = useDispatch();
@@ -38,14 +38,14 @@ const Addblogcat = () => {
   }, [getBlogCatId]);
   useEffect(() => {
     if (isSuccess && createBlogCategory) {
-      toast.success("Blog Category Added Successfullly!");
+      toast.success("Thêm thành công");
     }
     if (isSuccess && updatedBlogCategory) {
-      toast.success("Blog Category Updated Successfullly!");
+      toast.success("Cập nhật thành công");
       navigate("/admin/blog-category-list");
     }
     if (isError) {
-      toast.error("Something Went Wrong!");
+      toast.error("Gặp lỗi");
     }
   }, [isSuccess, isError, isLoading]);
   const formik = useFormik({
@@ -71,7 +71,7 @@ const Addblogcat = () => {
   return (
     <div>
       <h3 className="mb-4  title">
-        {getBlogCatId !== undefined ? "Edit" : "Add"} Blog Category
+        {getBlogCatId !== undefined ? "Edit" : "Thêm"} thể loại tin tức
       </h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
@@ -81,14 +81,14 @@ const Addblogcat = () => {
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
-            label="Enter Blog Category"
+            label="Nhập thể loại tin tức"
             id="blogcat"
           />
           <div className="error">
             {formik.touched.title && formik.errors.title}
           </div>
           
-          <CustomButton title =  {getBlogCatId !== undefined ? "Edit Blog Category" : "Add Blog Category" } />
+          <CustomButton title =  {getBlogCatId !== undefined ? "Edit Blog Category" : "Thêm" } />
         </form>
       </div>
     </div>
