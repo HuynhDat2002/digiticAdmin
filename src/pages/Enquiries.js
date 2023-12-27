@@ -15,11 +15,11 @@ import CustomModal from "../components/CustomModal";
 
 const columns = [
   {
-    title: "SNo",
+    title: "STT",
     dataIndex: "key",
   },
   {
-    title: "Name",
+    title: "Tên",
     dataIndex: "name",
   },
   {
@@ -27,16 +27,16 @@ const columns = [
     dataIndex: "email",
   },
   {
-    title: "Mobile",
+    title: "SĐT",
     dataIndex: "mobile",
   },
   {
-    title: "Staus",
+    title: "Trạng thái",
     dataIndex: "status",
   },
 
   {
-    title: "Action",
+    title: "Hành động",
     dataIndex: "action",
   },
 ];
@@ -120,7 +120,7 @@ const Enquiries = () => {
   };
   return (
     <div>
-      <h3 className="mb-4 title">Enquiries</h3>
+      <h3 className="mb-4 title">Phản hồi của khách hàng</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -130,7 +130,7 @@ const Enquiries = () => {
         performAction={() => {
           deleteEnq(enqId);
         }}
-        title="Are you sure you want to delete this enquiry?"
+        title="Bạn muốn xóa phản hồi này không?"
       />
     </div>
   );

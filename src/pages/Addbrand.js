@@ -15,7 +15,7 @@ import {
 } from "../features/brand/brandSlice";
 
 let schema = yup.object().shape({
-  title: yup.string().required("Brand Name is Required"),
+  title: yup.string().required("Không được bỏ trống"),
 });
 const Addbrand = () => {
   const dispatch = useDispatch();
@@ -41,15 +41,15 @@ const Addbrand = () => {
 
   useEffect(() => {
     if (isSuccess && createdBrand) {
-      toast.success("Brand Added Successfullly!");
+      toast.success("Thêm hãng thành công");
     }
     if (isSuccess && updatedBrand) {
-      toast.success("Brand Updated Successfullly!");
+      toast.success("Cập nhật thành công");
       navigate("/admin/list-brand");
     }
 
     if (isError) {
-      toast.error("Something Went Wrong!");
+      toast.error("Gặp lỗi");
     }
   }, [isSuccess, isError, isLoading]);
   const formik = useFormik({
@@ -76,7 +76,7 @@ const Addbrand = () => {
   return (
     <div>
       <h3 className="mb-4 title">
-        {getBrandId !== undefined ? "Edit" : "Add"} Brand
+        {getBrandId !== undefined ? "Edit" : "Thêm"} hãng sản phẩm
       </h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
@@ -86,14 +86,14 @@ const Addbrand = () => {
             onChng={formik.handleChange("title")}
             onBlr={formik.handleBlur("title")}
             val={formik.values.title}
-            label="Enter Brand"
+            label="Nhập hãng sản phẩm"
             id="brand"
           />
           <div className="error">
             {formik.touched.title && formik.errors.title}
           </div>
          
-          <CustomButton title= {getBrandId !== undefined ? "Edit Brand" : "Add Brand"}/>
+          <CustomButton title= {getBrandId !== undefined ? "Edit Brand" : "Thêm "}/>
         </form>
       </div>
     </div>

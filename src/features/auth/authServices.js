@@ -71,14 +71,24 @@ const resetPassword = async (data) => {
 }
 
 
-const getOrders = async () => {
-  const response = await axios.get(`${base_url}user/getallorders`, config);
+const getOrders = async (config2) => {
+  const response = await axios.get(`${base_url}user/getallorders`, config2);
 
   return response.data;
 };
+
 const getOrder = async (id) => {
   const response = await axios.get(
-    `${base_url}user/getorderbyuser/${id}`,
+    `${base_url}user/getaOrder/${id}`,
+    config
+  );
+
+  return response.data;
+};
+
+const updateOrder = async (data) => {
+  const response = await axios.put(
+    `${base_url}user/updateOrder/${data.id}`,{status:data.status},
     config
   );
 
@@ -93,6 +103,28 @@ const updateOrderStatus = async (data) => {
 
   return response.data;
 };
+
+const getMonthlyOrders = async (config2) => {
+  console.log('configheader',config2)
+  const response = await axios.get(
+    `${base_url}user/getMonthWiseOrderIncome`, 
+    config2
+  );
+
+  return response.data;
+};
+
+const getYearlyStats = async (config2) => {
+  console.log("configyear",config2)
+  const response = await axios.get(
+    `${base_url}user/getyearlyorders`, 
+    config2
+  );
+
+  return response.data;
+};
+
+
 const authService = {
 
   login,
@@ -102,7 +134,10 @@ const authService = {
   resetPassword,
   getOrders,
   getOrder,
-  updateOrderStatus 
+  updateOrderStatus,
+  getYearlyStats,
+  getMonthlyOrders,
+  updateOrder
 };
 
 export default authService;

@@ -19,9 +19,9 @@ import {
 import { getCategories } from "../features/bcategory/bcategorySlice";
 
 let schema = yup.object().shape({
-  title: yup.string().required("Title is Required"),
-  description: yup.string().required("Description is Required"),
-  category: yup.string().required("Category is Required"),
+  title: yup.string().required("Không được bỏ trống"),
+  description: yup.string().required("Không được bỏ trống"),
+  category: yup.string().required("Không được bỏ trống"),
 });
 const Addblog = () => {
   const dispatch = useDispatch();
@@ -59,14 +59,14 @@ const Addblog = () => {
 
   useEffect(() => {
     if (isSuccess && createdBlog) {
-      toast.success("Blog Added Successfullly!");
+      toast.success("Tin tức được thêm thành công");
     }
     if (isSuccess && updatedBlog) {
-      toast.success("Blog Updated Successfullly!");
+      toast.success("Cập nhật tin tức thành công");
       navigate("/admin/blog-list");
     }
     if (isError) {
-      toast.error("Something Went Wrong!");
+      toast.error("Gặp lỗi");
     }
   }, [isSuccess, isError, isLoading]);
 
@@ -109,7 +109,7 @@ const Addblog = () => {
   return (
     <div>
       <h3 className="mb-4 title">
-        {getBlogId !== undefined ? "Edit" : "Add"} Blog
+        {getBlogId !== undefined ? "Edit" : "Thêm"} Tin tức
       </h3>
 
       <div className="">
@@ -117,7 +117,7 @@ const Addblog = () => {
           <div className="mt-4">
             <CustomInput
               type="text"
-              label="Enter Blog Title"
+              label="Nhập tiêu đề của tin tức"
               name="title"
               onChng={formik.handleChange("title")}
               onBlr={formik.handleBlur("title")}
@@ -135,7 +135,7 @@ const Addblog = () => {
             className="form-control py-3  mt-3"
             id=""
           >
-            <option value="">Select Blog Category</option>
+            <option value="">Chọn loại tin tức</option>
             {bCatState.map((i, j) => {
               return (
                 <option key={j} value={i.title}>
@@ -166,7 +166,7 @@ const Addblog = () => {
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     <p>
-                      Drag 'n' drop some files here, or click to select files
+                      Kéo thả file vào đây hoặc click để chọn file
                     </p>
                   </div>
                 </section>
@@ -188,7 +188,7 @@ const Addblog = () => {
               );
             })}
           </div>
-            <CustomButton title={getBlogId !== undefined ? "Edit Blog" : "Add Blog"}/>
+            <CustomButton title={getBlogId !== undefined ? "Edit Blog" : "Thêm"}/>
         
         </form>
       </div>
