@@ -104,11 +104,11 @@ const updateOrderStatus = async (data) => {
   return response.data;
 };
 
-const getMonthlyOrders = async (config2) => {
-  console.log('configheader',config2)
+const getMonthlyOrders = async () => {
+  
   const response = await axios.get(
     `${base_url}user/getMonthWiseOrderIncome`, 
-    config2
+    config
   );
 
   return response.data;

@@ -6,6 +6,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { getOrders, updateAOrder } from "../features/auth/authSlice";
 import { updateOrderStatus } from "../features/auth/authSlice";
+import { NumericFormat } from "react-number-format";
 const columns = [
   {
     title: "STT",
@@ -65,18 +66,18 @@ const auth = useSelector(state=>state.auth.user)
           Xem chi tiết
         </Link>
       ),
-      amount: orderState[i]?.totalPrice,
+      amount: <NumericFormat value=  { orderState[i]?.totalPrice} allowLeadingZeros thousandSeparator="," suffix=" VND"></NumericFormat>,
       date: new Date(orderState[i]?.createdAt).toLocaleString(),
       action: (
         <>
           <select name="" defaultValue={orderState[i]?.orderStatus} onChange={(e) => updateOrderStatus(orderState[i]?._id, e.target.value)} className="form-control form-select" id="">
-            <option value="Ordered" disabled selected>Ordered</option> 
-            <option value="Not Processed" disabled selected>Not Processed</option> 
-            <option  value="Cash on Delivery">  Cash on Delivery</option> 
-            <option value="Processing"> Processing</option>
-            <option value="Dispatched"> Dispatched</option>     
-            <option value="Cancelled">Cancelled</option>
-            <option value="Delivered">Delivered</option>
+            <option value="Ordered" disabled selected>Đã đặt hàng</option> 
+            <option value="Not Processed" disabled selected>Không xử lý</option> 
+      
+            <option value="Processing"> Đang xử lý</option>
+            <option value="Dispatched"> Đã gửi</option>     
+            <option value="Cancelled">Đã hủy</option>
+            <option value="Delivered">Đã giao hàng</option>
 
           </select>
         </>
@@ -86,7 +87,7 @@ const auth = useSelector(state=>state.auth.user)
 
   const updateOrderStatus = (id, value) => {
     
-    dispatch(updateAOrder({ id: id, value: value }))
+    dispatch(updateAOrder({ id: id, status: value }))
   }
 
 
