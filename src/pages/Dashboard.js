@@ -45,7 +45,7 @@ const Dashboard = () => {
   useEffect(() => {
 
     dispatch(getMonthlyData(config3(auth)))
-    dispatch(getYearlyData(config3(auth)))
+    dispatch(getYearlyData())
     dispatch(getOrders(config3(auth)))
   }, [])
 

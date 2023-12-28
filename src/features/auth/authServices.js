@@ -71,8 +71,8 @@ const resetPassword = async (data) => {
 }
 
 
-const getOrders = async (config2) => {
-  const response = await axios.get(`${base_url}user/getallorders`, config2);
+const getOrders = async () => {
+  const response = await axios.get(`${base_url}user/getallorders`, config);
 
   return response.data;
 };
@@ -114,11 +114,11 @@ const getMonthlyOrders = async (config2) => {
   return response.data;
 };
 
-const getYearlyStats = async (config2) => {
-  console.log("configyear",config2)
+const getYearlyStats = async () => {
+  
   const response = await axios.get(
     `${base_url}user/getyearlyorders`, 
-    config2
+    config
   );
 
   return response.data;

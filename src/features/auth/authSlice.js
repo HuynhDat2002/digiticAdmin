@@ -78,9 +78,9 @@ async (data,thunkAPI)=>{
 
 export const getOrders = createAsyncThunk(
   "order/get-orders",
-  async (config,thunkAPI) => {
+  async (thunkAPI) => {
     try {
-      return await authService.getOrders(config);
+      return await authService.getOrders();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -122,10 +122,10 @@ export const updateOrderStatus = createAsyncThunk(
 
 export const getYearlyData = createAsyncThunk(
   "orders/yearlydata",
-  async (config,thunkAPI) => {
+  async (thunkAPI) => {
     try {
       
-      return await authService.getYearlyStats(config);
+      return await authService.getYearlyStats();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

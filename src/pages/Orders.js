@@ -35,6 +35,20 @@ const columns = [
 ];
 
 const Orders = () => {
+const auth = useSelector(state=>state.auth.user)
+ const config2 =(auth)=> {
+    return{
+  
+      headers: {
+        Authorization: `Bearer ${
+          auth !== null ? auth.token : ""
+        }`,
+        Accept: "application/json",
+      }
+    }
+  
+    
+  };
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOrders());
