@@ -59,7 +59,7 @@ const auth = useSelector(state=>state.auth.user)
   for (let i = 0; i < orderState?.length; i++) {
     data1.push({
       key: i + 1,
-      name: orderState[i]?.user?.firstname,
+      name: orderState[i]?.shippingInfo?.name ,
       product: (
         <Link to={`/admin/order/${orderState[i]?._id}`}>
           Xem chi tiết
