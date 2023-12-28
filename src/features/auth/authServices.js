@@ -1,6 +1,18 @@
 import axios from "axios";
-import { config } from "../../utils/axiosconfig";
+// import { config } from "../../utils/axiosconfig";
 import { base_url } from "../../utils/baseUrl";
+const getTokenFromLocalStorage = localStorage.getItem("user")
+  ? JSON.parse(localStorage.getItem("user"))
+  : null;
+
+const config = {
+  headers: {
+    Authorization: `Bearer ${
+      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+    }`,
+    Accept: "application/json",
+  },
+};
 
 
 const login = async (user) => {
@@ -115,7 +127,7 @@ const getMonthlyOrders = async (config2) => {
 };
 
 const getYearlyStats = async () => {
-  
+  console.log("configgg3",config)
   const response = await axios.get(
     `${base_url}user/getyearlyorders`, 
     config
