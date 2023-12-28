@@ -11,7 +11,7 @@ const deleteEnquiry = async (id) => {
   return response.data;
 };
 const getEnquiry = async (id) => {
-  const response = await axios.get(`${base_url}enquiry/${id}`);
+  const response = await axios.get(`${base_url}enquiry/${id}`,config);
   return response.data;
 };
 const udpateEnquiry = async (enq) => {

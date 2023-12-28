@@ -13,8 +13,11 @@ const columns = [
     dataIndex: "key",
   },
   {
-    title: "Tên",
+    title: "Màu",
     dataIndex: "name",
+    render: (text, record) => (
+      <div style={{ backgroundColor: text, width: '20px', height: '20px' }} className="rounded-5"></div>
+    ),
   },
   {
     title: "Hành động",

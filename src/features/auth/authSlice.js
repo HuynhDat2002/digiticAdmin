@@ -24,9 +24,9 @@ export const login = createAsyncThunk(
 
 export const getMonthlyData = createAsyncThunk(
   "orders/monthlydata",
-  async (config, thunkAPI) => {
+  async ( thunkAPI) => {
     try {
-      return await authService.getMonthlyOrders(config);
+      return await authService.getMonthlyOrders();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

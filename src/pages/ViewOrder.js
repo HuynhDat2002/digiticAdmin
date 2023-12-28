@@ -5,6 +5,7 @@ import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 import { getOrder } from "../features/auth/authSlice";
+import { NumericFormat } from "react-number-format";
 const columns = [
   {
     title: "STT",
@@ -25,6 +26,9 @@ const columns = [
   {
     title: "Màu sắc",
     dataIndex: "color",
+    render: (text, record) => (
+      <div style={{ backgroundColor: text, width: '20px', height: '20px' }} className="rounded-5"></div>
+    ),
   },
   {
     title: "Tổng cộng",
@@ -49,11 +53,13 @@ const ViewOrder = () => {
   for (let i = 0; i < orderState?.orderItems?.length; i++) {
     data1.push({
       key: i + 1,
-      name: orderState?.orderItems[i]?.product.title,
-      brand: orderState?.orderItems[i]?.product.brand,
+      name: orderState?.orderItems[i]?.productId.title,
+      brand: orderState?.orderItems[i]?.productId.brand,
       count: orderState?.orderItems[i]?.quantity,
-      amount: orderState?.orderItems[i]?.price,
-      color: orderState?.orderItems[i]?.color[0]?.title,
+      amount: <NumericFormat value=  { orderState?.orderItems[i]?.productId.price} allowLeadingZeros thousandSeparator="," suffix=" VND"></NumericFormat>,
+      
+     // color :<div style = {{backgroundColor:orderState?.orderItems[i]?.color?.title}}></div>
+      color: orderState?.orderItems[i]?.color?.title,
      
     
       // action: (
@@ -72,7 +78,7 @@ const ViewOrder = () => {
     <div>
       <h3 className="mb-4 title">Xem hóa đơn</h3>
       <div>
-        <Table columns={columns} dataSource={data1} />
+        <Table columns={columns} dataSource={data1}  />
       </div>
     </div>
   );

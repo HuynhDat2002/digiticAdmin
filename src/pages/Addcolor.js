@@ -71,7 +71,7 @@ const Addcolor = () => {
   return (
     <div>
       <h3 className="mb-4 title">
-        {getColorId !== undefined ? "Edit" : "Thêm"} màu sản phẩm
+        {getColorId !== undefined ? "Thêm" : "Thêm"} màu sản phẩm
       </h3>
       <div>
         <form action="" onSubmit={formik.handleSubmit}>
@@ -86,7 +86,7 @@ const Addcolor = () => {
           <div className="error">
             {formik.touched.title && formik.errors.title}
           </div>
-          <CustomButton title={getColorId !== undefined ? "Edit Color" : "Thêm màu sản phẩm"} />
+          <CustomButton title={getColorId !== undefined ? "Thêm" : "Thêm màu sản phẩm"} />
 
         </form>
       </div>

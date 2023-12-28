@@ -4,6 +4,7 @@ import { Column } from "@ant-design/plots";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getMonthlyData, getOrders, getYearlyData } from "../features/auth/authSlice";
+import { NumericFormat } from "react-number-format";
 import {config3} from '../utils/axiosconfig'
 const columns = [
   {
@@ -44,9 +45,10 @@ const Dashboard = () => {
   const [orderData,setOrderData]=useState([])
   useEffect(() => {
 
-    dispatch(getMonthlyData(config3(auth)))
-    dispatch(getYearlyData(config3(auth)))
-    dispatch(getOrders(config3(auth)))
+
+    dispatch(getMonthlyData())
+    dispatch(getYearlyData())
+    dispatch(getOrders())
   }, [])
 
   useEffect(() => {
@@ -66,12 +68,12 @@ const Dashboard = () => {
     const data1 = [];
     for (let i = 0; i < orderState?.length; i++) {
       data1.push({
-        key: i,
-        name: orderState[i]?.user?.firstname + orderState[i]?.user?.lastname,
+        key: i+1,
+        name: orderState[i]?.shippingInfo?.name ,
         product: orderState[i].orderItems?.length,
         price: orderState[i]?.totalPrice,
         dprice: orderState[i]?.totalPriceAfterDiscount,
-        status: orderState[i]?.orderStaus,
+        status: orderState[i]?.orderStatus,
       });
     }
     setOrderData(data1)
@@ -81,13 +83,13 @@ const Dashboard = () => {
 
   const config = {
     data :dataMonthly,
-    xField: "type",
+    xField: "Doanh thu một năm trở lại đây",
     yField: "income",
     color: ({ type }) => {
       return "#ffd333";
     },
     label: {
-      position: "middle",
+      // position: "middle",
       style: {
         fill: "#FFFFFF",
         opacity: 1,
@@ -110,13 +112,13 @@ const Dashboard = () => {
   };
   const config2 = {
     data :dataMonthlySales,
-    xField: "type",
+    xField: "Số đơn hàng 1 năm trở lại đây",
     yField: "sales",
     color: ({ type }) => {
       return "#ffd333";
     },
     label: {
-      position: "middle",
+      // position: "middle",
       style: {
         fill: "#FFFFFF",
         opacity: 1,
@@ -138,51 +140,51 @@ const Dashboard = () => {
     },
   };
   console.log("t",yearlyDataState)
-  return (
+  return (  
     <div>
-      <h3 className="mb-4 title">Dashboard</h3>
+      <h3 className="mb-4 title">Trang chủ</h3>
       <div className="d-flex justify-content-between align-items-center gap-3">
         <div className="d-flex p-3 justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
           <div>
-            <p className="desc">Total Income</p>
-            <h4 className="mb-0 sub-title">${yearlyDataState && yearlyDataState[0].amount}</h4>
-          </div>
+            <p className="desc">Doanh thu</p>
+            <h4 className="mb-0 sub-title  fw-bold"><NumericFormat value={yearlyDataState && yearlyDataState[0].amount} className="mx-0 px-0 fw-bold border border-0" allowLeadingZeros thousandSeparator="," suffix=" VND"/></h4>
+          </div>  
           <div className="d-flex flex-column align-items-end">
 
-            <p className="mb-0  desc">Income in Last Year from Today</p>
+            <p className="mb-0  desc">Doanh thu so với năm trước</p>
           </div>
         </div>
         <div className="d-flex p-3 justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
           <div>
-            <p className="desc">Total Sales</p>
-            <h4 className="mb-0 sub-title">${yearlyDataState && yearlyDataState[0].count}</h4>
+            <p className="desc">Số đơn hàng</p>
+            <h4 className="mb-0 sub-title">{yearlyDataState && yearlyDataState[0].count}</h4>
           </div>
           <div className="d-flex flex-column align-items-end">
            
-            <p className="mb-0 desc">Sales in Last Year from Today</p>
+            <p className="mb-0 desc">Số đơn hàng so với năm trước</p>
           </div>
         </div>
       </div>
-      <div className="d-flex justify-content-between gap-3">
+      <div className="d-flex justify-content-between gap-3 mt-5">
       <div className="mt-4 flex-grow-1 w-50">
-        <h3 className="mb-5 title">Income Statics</h3>
+        <h3 className="mb-5 title">Thống kê thu nhập</h3>
         <div>
           <Column {...config} />
         </div>
       </div>
       <div className="mt-4 flex-grow-1 w-50" >
-        <h3 className="mb-5 title">Sales Statics</h3>
+        <h3 className="mb-5 title">Thống kê bán hàng</h3>
         <div>
           <Column {...config2} />
         </div>
       </div>
+    </div>
       <div className="mt-4">
-        <h3 className="mb-5 title">Recent Orders</h3>
+        <h3 className="mb-5 title">Đơn hàng gần đây</h3>
         <div>
           <Table columns={columns} dataSource={orderData} />
         </div>
       </div>
-    </div>
     </div>
   );
 };

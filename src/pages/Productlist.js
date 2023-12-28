@@ -41,7 +41,7 @@ const Productlist = () => {
   const productState = useSelector((state) => state.product.products);
   useEffect(() => {
     if (isSuccess && message === "deleted") {
-      toast.success("Product Deleted Successfullly!");
+      toast.success("Đã xóa sản phẩm thành công");
       setTimeout(() => {
         if(!isLoading)  dispatch(getProducts());
       }, 1000);
@@ -49,7 +49,7 @@ const Productlist = () => {
       // Replace "/" with the desired path
     }
     if (isError) {
-      toast.error("Something Went Wrong!");
+      toast.error("Lỗi!");
     }
   }, [isSuccess,message]);
   const handleEdit = (data)=>{
@@ -61,41 +61,46 @@ const Productlist = () => {
 
   const columns = [
     {
-      title: "SNo",
+      title: "STT",
       dataIndex: "key",
     },
     {
-      title: "Title",
+      title: "Tên sản phẩm",
       dataIndex: "title",
       sorter: (a, b) => a.title.length - b.title.length,
     },
     {
-      title: "Brand",
+      title: "Hãng",
       dataIndex: "brand",
       sorter: (a, b) => a.brand.length - b.brand.length,
       
     },
     {
-      title: "Category",
+      title: "Loại sản phẩm",
       dataIndex: "category",
       sorter: (a, b) => a.category.length - b.category.length,
     },
     {
-      title: "Color",
+      title: "Màu",
       dataIndex: "color",
+      render: (text, record) => (
+        text.map(item=>(
+          <div style={{ backgroundColor: item, width: '20px', height: '20px' }} className="mb-1 rounded-5"></div>
+        ))
+      ),
     },
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "price",
       sorter: (a, b) => a.price - b.price,
     },
     {
-      title: "Quantity",
+      title: "Số lượng",
       dataIndex: "quantity",
       sorter: (a, b) => a.quantity - b.quantity,
     },
     {
-      title: "Action",
+      title: "Trạng thái",
       dataIndex: "action",
     },
   ];
@@ -136,7 +141,7 @@ const Productlist = () => {
   console.log("data1:",data1);
   return (
     <>
-      <h3 className="mb-4 title">Products</h3>
+      <h3 className="mb-4 title">Danh sách sản phẩm</h3>
       <div className="z-0">
          <Table columns={columns} dataSource={data1} /> 
       </div>
@@ -146,7 +151,7 @@ const Productlist = () => {
         performAction={() => {
           deleteAProduct(proId);
         }}
-        title="Are you sure you want to delete this product?"
+        title="Bạn muốn xóa sản phẩm này không?"
       />
     </>
   );

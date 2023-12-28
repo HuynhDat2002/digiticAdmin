@@ -1,4 +1,4 @@
-import CustomButton from "../components/CustomButton"
+import CustomButton from "../components/CustomButton";
 import { React, useEffect, useState } from "react";
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
@@ -48,7 +48,7 @@ const Addproduct = () => {
   const imgState = useSelector((state) => state.upload.images);
   const newProduct = useSelector((state) => state.product);
   const { isSuccess, isError, isLoading, createdProduct } = newProduct;
-console.log('NPRO',newProduct);
+  console.log("NPRO", newProduct);
   useEffect(() => {
     if (isSuccess && createdProduct) {
       toast.success("Thêm sản phẩm thành công");
@@ -202,7 +202,7 @@ console.log('NPRO',newProduct);
             {formik.touched.tags && formik.errors.tags}
           </div>
 
-          <Select
+          {/* <Select
             mode="multiple"
             allowClear
             className="w-100"
@@ -210,7 +210,24 @@ console.log('NPRO',newProduct);
             defaultValue={color}
             onChange={(i) => handleColors(i)}
             options={coloropt}
-          />
+          /> */}
+          <Select
+            mode="multiple"
+            allowClear
+            className="w-100"
+            placeholder="Chọn màu"
+            value={color}
+            onChange={(i) => handleColors(i)}
+            optionLabelProp="title"
+          >
+            {
+              coloropt.map(item =>
+                <Select.Option key={item.value} value={item.value} title={<span style={{backgroundColor:item.label}}>{item.label}</span>}>
+                  <span style={{backgroundColor:item.label}}>{item.label}</span>
+                </Select.Option>
+              )
+            }
+          </Select>
           <div className="error">
             {formik.touched.color && formik.errors.color}
           </div>
@@ -233,9 +250,7 @@ console.log('NPRO',newProduct);
                 <section>
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
-                    <p>
-                      Kéo thả file vào đây hoặc click để chọn file
-                    </p>
+                    <p>Kéo thả file vào đây hoặc click để chọn file</p>
                   </div>
                 </section>
               )}
@@ -256,7 +271,7 @@ console.log('NPRO',newProduct);
               );
             })}
           </div>
-         <CustomButton title="Thêm sản phẩm"/>
+          <CustomButton title="Thêm sản phẩm" />
         </form>
       </div>
     </div>
@@ -264,8 +279,6 @@ console.log('NPRO',newProduct);
 };
 
 export default Addproduct;
-
-
 
 // import { React, useEffect, useState } from "react";
 // import CustomInput from "../components/CustomInput";
@@ -307,7 +320,7 @@ export default Addproduct;
 
 //   const [color, setColor] = useState([]);
 //   const [images, setImages] = useState([]);
-  
+
 //   const brandState = useSelector((state) => state.brand.brands);
 //   const catState = useSelector((state) => state.pCategory.pCategories);
 //   const colorState = useSelector((state) => state.color.colors);
@@ -331,7 +344,6 @@ export default Addproduct;
 //       }
 //     }, [isSuccess, isError, isLoading]);
 
-    
 //   const coloropt = [];
 //   colorState.forEach((i) => {
 //     coloropt.push({
@@ -346,7 +358,7 @@ export default Addproduct;
 //       url: i.url,
 //     });
 //   });
- 
+
 //   console.log("img: ", imgState);
 //   useEffect(() => {
 //     formik.values.color = color ? color : " ";
@@ -543,8 +555,3 @@ export default Addproduct;
 // };
 
 // export default Addproduct;
-
-
-
-
-
