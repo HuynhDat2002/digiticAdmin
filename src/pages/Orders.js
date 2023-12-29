@@ -71,9 +71,7 @@ const auth = useSelector(state=>state.auth.user)
       action: (
         <>
           <select name="" defaultValue={orderState[i]?.orderStatus} onChange={(e) => updateOrderStatus(orderState[i]?._id, e.target.value)} className="form-control form-select" id="">
-            <option value="Ordered" disabled selected>Đã đặt hàng</option> 
-            <option value="Not Processed" disabled selected>Không xử lý</option> 
-      
+            <option value="Ordered" disabled selected>Đã đặt hàng</option>       
             <option value="Processing"> Đang xử lý</option>
             <option value="Dispatched"> Đã gửi</option>     
             <option value="Cancelled">Đã hủy</option>
