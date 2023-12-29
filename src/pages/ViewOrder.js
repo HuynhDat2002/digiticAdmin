@@ -31,7 +31,7 @@ const columns = [
     ),
   },
   {
-    title: "Tổng cộng",
+    title: "Giá",
     dataIndex: "amount",
   }
  
